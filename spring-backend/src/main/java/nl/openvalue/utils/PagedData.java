@@ -13,4 +13,20 @@ public class PagedData<T> {
         this.pageInfo = page.getPageable();
         this.data = page.getContent();
     }
+
+    public Pageable getPageInfo() {
+        return pageInfo;
+    }
+
+    public void setPageInfo(Pageable pageInfo) {
+        this.pageInfo = pageInfo;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
 }

@@ -5,7 +5,7 @@ VALUES ('Item 1', 'Description', '1', '12.50'),
        ('Item 4', 'Description', '4', '12.50');
 
 INSERT INTO `users` (id, name, email)
-VALUES ('1', 'User 1', 'user1@gmail.com'),
+VALUES ('1', 'John Doe', 'johnny_69@gmail.com'),
        ('2', 'User 2', 'user2@gmail.com'),
        ('3', 'User 3', 'user3@gmail.com');
 
