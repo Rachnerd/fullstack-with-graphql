@@ -1,13 +1,9 @@
-import React from 'react';
-import './App.scss';
-import { Item } from "./item/Item";
+import React from "react";
+import "./App.scss";
+import ItemDetailPage from "./pages/item-detail/ItemDetailPage";
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <Item />
-    </div>
-  );
-}
+  return <ItemDetailPage />;
+};
 
 export default App;

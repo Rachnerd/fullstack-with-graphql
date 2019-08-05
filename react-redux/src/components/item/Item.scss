@@ -1,14 +1,21 @@
-.item-header {
+.item {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  max-width: 18em;
+  padding: 0.4em;
 
   &__image {
     max-width: 12em;
     align-self: center;
   }
 
-  &__sub-title {
+  &__sub-header {
     font-size: 0.8em;
+    > * {
+      display: inline-block;
+      margin-right: 0.4em;
+    }
   }
 
   &__rating {
