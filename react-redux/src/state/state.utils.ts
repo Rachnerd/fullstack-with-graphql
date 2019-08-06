@@ -4,7 +4,7 @@ export interface Normalized<T> {
 }
 
 export interface Async<T> {
-  data?: T;
   loading: boolean;
-  error?: Error;
+  data?: T;
+  error?: number;
 }

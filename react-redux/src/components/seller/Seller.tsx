@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReduxUser } from "../../state/state.model";
+import { ReduxUser } from "../../state/user/user.model";
 
 interface SellerProps {
   className?: string;

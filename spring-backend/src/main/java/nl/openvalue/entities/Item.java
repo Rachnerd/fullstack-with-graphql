@@ -19,6 +19,10 @@ public class Item {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
     private List<Review> reviews;
 
+    Long getId() {
+        return id;
+    }
+
     String getName() {
         return name;
     }

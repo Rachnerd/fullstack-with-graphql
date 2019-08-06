@@ -1,7 +1,8 @@
 import * as React from "react";
 import "./Item.scss";
 import { UIDivider } from "../../ui/Divider";
-import { ReduxItem } from "../../state/state.model";
+import { ReduxItem } from "../../state/item/item.model";
+
 import Rating from "../../ui/Rating";
 
 interface ItemProps {
@@ -9,7 +10,11 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {
-  const { averageRating, image, name } = item;
+  const {
+    averageRating,
+    image = "https://media.istockphoto.com/photos/broken-claw-hammer-picture-id611296672?k=6&m=611296672&s=612x612&w=0&h=4SgFrxnuU2IVsDTWFmzvxD_cEWaNVCL5sKTdu-edsGI=",
+    name
+  } = item;
   return (
     <div className={"item"}>
       <h2>{name}</h2>

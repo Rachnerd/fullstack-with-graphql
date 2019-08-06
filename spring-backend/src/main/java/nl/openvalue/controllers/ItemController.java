@@ -31,6 +31,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable String id) {
+        System.out.println("YOO");
         Optional<Item> optionalItem = itemService.getItem(Long.parseLong(id));
         if (optionalItem.isPresent()) {
             return ResponseEntity.ok(ItemDto.transform(optionalItem.get()));
