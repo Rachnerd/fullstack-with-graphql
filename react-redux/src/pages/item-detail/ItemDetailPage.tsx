@@ -1,8 +1,19 @@
 import React from "react";
 import Item from "../../components/item/Item";
+import { connect } from "react-redux";
+import { fetchItem } from "../../state/item.actions";
+import { AppState } from "../../state/state.model";
 
-const ItemDetailPage: React.FC = () => {
+interface ItemDetailPageProps {
+  fetchItem: typeof fetchItem;
+  // item: AppState["item"];
+}
+
+const ItemDetailPage: React.FC<ItemDetailPageProps> = (props: ItemDetailPageProps) => {
+  // console.log(props.item.allIds);
+
   const item = {
+    id: "",
     name: "Broken hammer",
     description: "Does this item really need an explanation?",
     image:
@@ -16,4 +27,7 @@ const ItemDetailPage: React.FC = () => {
   return <Item item={item} />;
 };
 
-export default ItemDetailPage;
+export default connect(
+  (state: AppState) => state.item,
+  { fetchItem }
+)(ItemDetailPage);

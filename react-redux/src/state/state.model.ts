@@ -1,13 +1,15 @@
+import { Async, Normalized } from "./state.utils";
+
 export interface AppState {
-  item: ReduxItem;
+  item: Normalized<Async<ReduxItem>>;
 }
 
 export interface ReduxItem {
+  id: string;
   name: string;
   description: string;
   image: string;
   averageRating: number;
-  seller: ReduxUser;
 }
 
 export interface ReduxUser {
