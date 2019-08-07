@@ -14,7 +14,7 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   return (
     <>
       <Item item={itemsById[id]} />
-      <ConfigurableRating onSelectRating={setRating} /> {rating}
+      <ConfigurableRating rating={rating} onSelectRating={setRating} /> {rating}
     </>
   );
 };
