@@ -3,26 +3,26 @@ import "./ConfigurableRating.scss";
 import Rating from "../Rating";
 
 interface ConfigurableRatingProps {
+  rating: number;
   onSelectRating: (rating: number) => void;
 }
 
-const ConfigurableRating = ({ onSelectRating }: ConfigurableRatingProps) => {
-  const [rating, setRating] = useState<number>(0);
-  const [tempRating, setTempRating] = useState<number>(0);
+const ConfigurableRating = ({ rating, onSelectRating }: ConfigurableRatingProps) => {
+  const [tempRating, setTempRating] = useState<number>(rating);
 
   const determineTempRating = (event: React.MouseEvent) => {
     const targetElement = event.target as HTMLElement;
-    const starIndex = Array.prototype.indexOf.call(
-      targetElement.parentNode ? targetElement.parentNode.children : [],
+    const index = Array.prototype.indexOf.call(
+      targetElement.parentNode!.children,
       targetElement
     );
 
-    const starRect = targetElement.getBoundingClientRect();
-    const relativeMouseX = event.clientX - starRect.left;
-    const halfWidth = Math.ceil(starRect.width / 2);
-    const onLeftHalf = relativeMouseX < halfWidth;
+    const rect = targetElement.getBoundingClientRect();
+    const rectMouseX = event.clientX - rect.left;
+    const rectHalfWidth = Math.ceil(rect.width / 2);
+    const onLeftHalf = rectMouseX < rectHalfWidth;
 
-    setTempRating(onLeftHalf ? starIndex + 0.5 : starIndex + 1);
+    setTempRating(onLeftHalf ? index + 0.5 : index + 1);
   };
 
   const resetTempRating = () => {
@@ -30,7 +30,6 @@ const ConfigurableRating = ({ onSelectRating }: ConfigurableRatingProps) => {
   };
 
   const submitTempRating = () => {
-    setRating(tempRating);
     onSelectRating(tempRating);
   };
 
