@@ -7,17 +7,18 @@ export enum ItemActionType {
   FETCH_ERROR = "[ItemState] Fetch item error"
 }
 
+export interface FetchItem extends Action<ItemActionType.FETCH> {
+  payload: {
+    id: string;
+  };
+}
+
 export function fetchItem(id: string): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH,
     payload: {
       id
     }
-  };
-}
-export interface FetchItem extends Action<ItemActionType.FETCH> {
-  payload: {
-    id: string;
   };
 }
 

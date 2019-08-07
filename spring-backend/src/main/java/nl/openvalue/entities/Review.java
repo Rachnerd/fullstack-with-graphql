@@ -11,6 +11,8 @@ public class Review {
 
     private String description;
 
+    private Double rating;
+
     @Column(name = "item_id", nullable = false)
     private Long itemId;
 
@@ -32,6 +34,10 @@ public class Review {
 
     Long getId() {
         return id;
+    }
+
+    Double getRating() {
+        return rating;
     }
 
     String getDescription() {

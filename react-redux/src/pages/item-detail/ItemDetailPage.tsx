@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Item from "../../components/item/Item";
 import { useSelector } from "react-redux";
-import { AppState, HTTP_STATUS_CODE } from "../../state/state.model";
+import { AppState } from "../../state/state.model";
+import ConfigurableRating from "../../components/rating/configurable/ConfigurableRating";
 
 interface ItemDetailPageProps {
   id: string;
@@ -9,17 +10,13 @@ interface ItemDetailPageProps {
 
 const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const { byIds: itemsById } = useSelector((state: AppState) => state.normalizedItems);
-  const { loading, data, error } = itemsById[id];
-  if (loading) {
-    return <p>Loading</p>;
-  }
-  if (error) {
-    return <p>{error === HTTP_STATUS_CODE.UNAUTHORIZED ? "Unauthorized!" : "???"} </p>;
-  }
-  if (!data) {
-    return <p>No Data!</p>;
-  }
-  return <Item item={data} />;
+  const [rating, setRating] = useState<number>(0);
+  return (
+    <>
+      <Item item={itemsById[id]} />
+      <ConfigurableRating onSelectRating={setRating} /> {rating}
+    </>
+  );
 };
 
 export default ItemDetailPage;
