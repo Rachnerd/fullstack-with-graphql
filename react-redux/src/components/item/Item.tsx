@@ -1,14 +1,14 @@
 import * as React from "react";
 import "./Item.scss";
 import { UIDivider } from "../../ui/Divider";
-import { ReduxItem } from "../../state/item/item.model";
+import { ItemModel } from "../../state/item/item.model";
 
 import Rating from "../rating/Rating";
 import { Async } from "../../state/state.utils";
 import HttpError from "../../http-error/HttpError";
 
 interface ItemProps {
-  item: Async<ReduxItem>;
+  item: Async<ItemModel>;
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {
@@ -28,7 +28,7 @@ const Item: React.FC<ItemProps> = ({ item }) => {
 
   const {
     averageRating,
-    image = "https://media.istockphoto.com/photos/broken-claw-hammer-picture-id611296672?k=6&m=611296672&s=612x612&w=0&h=4SgFrxnuU2IVsDTWFmzvxD_cEWaNVCL5sKTdu-edsGI=",
+    image,
     name,
     description
   } = data;

@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { ReduxItem } from "./item.model";
+import { ItemModel } from "./item.model";
 
 export enum ItemActionType {
   FETCH = "[ItemState] Fetch item",
@@ -24,10 +24,10 @@ export function fetchItem(id: string): ItemActionsUnion {
 
 export interface FetchItemSuccess extends Action<ItemActionType.FETCH_SUCCESS> {
   payload: {
-    item: ReduxItem;
+    item: ItemModel;
   };
 }
-export function fetchItemSuccessAction(item: ReduxItem): ItemActionsUnion {
+export function fetchItemSuccessAction(item: ItemModel): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH_SUCCESS,
     payload: {

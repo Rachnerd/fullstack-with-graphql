@@ -6,10 +6,14 @@ import { fetchItem } from "./state/item/item.actions";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const id = "2";
+  const id = "1";
   dispatch(fetchItem(id));
 
-  return <ItemDetailPage id={id} />;
+  return (
+    <div className={"app"}>
+      <ItemDetailPage id={id} />
+    </div>
+  );
 };
 
 export default App;

@@ -1,14 +1,18 @@
 import { default as React, HTMLAttributes, ReactNode } from "react";
 import "./Rating.scss";
+import classNames from "classnames";
 
 interface RatingProps {
   rating: number;
   max?: number;
 }
 
+const MAX_DEFAULT = 5;
+
 const Rating = ({
   rating,
-  max = 5,
+  max = MAX_DEFAULT,
+  className,
   ...htmlAttributes
 }: RatingProps & HTMLAttributes<HTMLSpanElement>) => {
   const stars: ReactNode[] = [];
@@ -17,13 +21,20 @@ const Rating = ({
     stars.push(
       <span
         key={`rating-${i}`}
-        className={`fa fa-star${addHalfStar ? "-half-o" : ""} ${
-          i < rating ? "rating--checked" : ""
-        }`}
+        className={classNames("fa", {
+          "fa-star": !addHalfStar,
+          "fa-star-half-o": addHalfStar,
+          "rating--active": i < rating
+        })}
       />
     );
   }
-  return <span {...htmlAttributes}>{stars}</span>;
+
+  return (
+    <div {...htmlAttributes} className={classNames("rating", className)}>
+      {stars}
+    </div>
+  );
 };
 
 export default Rating;

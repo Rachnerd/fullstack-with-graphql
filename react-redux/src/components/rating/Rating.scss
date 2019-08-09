@@ -1,6 +1,7 @@
 .rating {
-  cursor: pointer;
-  &--checked {
+  display: inline-block;
+
+  &--active {
     color: gold;
   }
 }

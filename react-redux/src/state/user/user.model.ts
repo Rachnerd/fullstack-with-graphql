@@ -1,4 +1,4 @@
-export interface ReduxUser {
+export interface UserModel {
   id: string;
   name: string;
 }

@@ -8,7 +8,7 @@ import {
 } from "./item.actions";
 import { AppState } from "../state.model";
 import { switchMap } from "rxjs/operators";
-import { ReduxItem } from "./item.model";
+import { ItemModel } from "./item.model";
 
 const BACKEND = "http://localhost:8080";
 
@@ -19,7 +19,7 @@ export const fetchItemEpic: Epic<ItemActionsUnion, ItemActionsUnion, AppState> =
       if (!response.ok) {
         return fetchItemErrorAction(id, response.status);
       }
-      const item = (await response.json()) as ReduxItem;
+      const item = (await response.json()) as ItemModel;
       return fetchItemSuccessAction(item);
     })
   );

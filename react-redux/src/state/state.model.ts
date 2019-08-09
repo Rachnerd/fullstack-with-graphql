@@ -1,5 +1,5 @@
 import { Async, Normalized } from "./state.utils";
-import { ReduxItem } from "./item/item.model";
+import { ItemModel } from "./item/item.model";
 
 export enum HTTP_STATUS_CODE {
   UNAUTHORIZED = 401,
@@ -7,5 +7,5 @@ export enum HTTP_STATUS_CODE {
 }
 
 export interface AppState {
-  normalizedItems: Normalized<Async<ReduxItem>>;
+  normalizedItems: Normalized<Async<ItemModel>>;
 }

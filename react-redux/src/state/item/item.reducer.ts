@@ -1,8 +1,8 @@
 import { ItemActionsUnion, ItemActionType } from "./item.actions";
 import { Async, Normalized } from "../state.utils";
-import { ReduxItem } from "./item.model";
+import { ItemModel } from "./item.model";
 
-type ItemState = Normalized<Async<ReduxItem>>;
+type ItemState = Normalized<Async<ItemModel>>;
 
 const initialState: ItemState = { byIds: {}, allIds: [] };
 

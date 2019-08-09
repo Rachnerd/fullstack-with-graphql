@@ -1,4 +1,4 @@
-export interface ReduxItem {
+export interface ItemModel {
   id: string;
   name: string;
   description: string;

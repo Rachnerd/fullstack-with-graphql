@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ReduxUser } from "../../state/user/user.model";
+import { UserModel } from "../../state/user/user.model";
 
 interface SellerProps {
   className?: string;
-  seller: ReduxUser;
+  seller: UserModel;
 }
 
 const Seller = ({ seller, className = "" }: SellerProps) => {
