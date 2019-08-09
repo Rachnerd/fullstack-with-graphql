@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ItemDto {
     public static ItemDto transform(Item item) {
         List<Long> reviewIds = item.getReviews().stream().map(Review::getId).collect(Collectors.toList());
-        ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getPrice().toString(), reviewIds);
+        ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getImage(), item.getPrice().toString(), reviewIds);
 
         double totalRating = item.getReviews().stream().map(Review::getRating).reduce(Double::sum).orElse(-1.0);
         int amountOfRatings = item.getReviews().size();
@@ -37,6 +37,9 @@ public class ItemDto {
 
     @NonNull
     private String description;
+
+    @NonNull
+    private String image;
 
     @NonNull
     private String price;

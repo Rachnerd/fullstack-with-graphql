@@ -14,6 +14,8 @@ public class Item {
 
     private String description;
 
+    private String image;
+
     private Float price;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
@@ -33,6 +35,10 @@ public class Item {
 
     Float getPrice() {
         return price;
+    }
+
+    String getImage() {
+        return image;
     }
 
     List<Review> getReviews() {
