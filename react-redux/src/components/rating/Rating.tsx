@@ -9,12 +9,12 @@ interface RatingProps {
 
 const MAX_DEFAULT = 5;
 
-const Rating = ({
+const Rating: React.FC<RatingProps & HTMLAttributes<HTMLSpanElement>> = ({
   rating,
   max = MAX_DEFAULT,
   className,
   ...htmlAttributes
-}: RatingProps & HTMLAttributes<HTMLSpanElement>) => {
+}) => {
   const stars: ReactNode[] = [];
   for (let i = 0; i < max; i++) {
     const addHalfStar = rating - i < 1 && rating - i > 0;
