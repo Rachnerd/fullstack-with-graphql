@@ -16,8 +16,6 @@ public class Item {
 
     private String image;
 
-    private Float price;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
     private List<Review> reviews;
 
@@ -31,10 +29,6 @@ public class Item {
 
     String getDescription() {
         return description;
-    }
-
-    Float getPrice() {
-        return price;
     }
 
     String getImage() {
