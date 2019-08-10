@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { AppState } from "../../state/state.model";
 import { UIDivider } from "../../ui/Divider";
 import "./ItemDetailPage.scss";
-import ReviewList from "../../components/review/review-list/ReviewList";
+import ReviewList from "../../components/review/list/ReviewList";
 import { ReviewModel } from "../../state/review/review.model";
+import NewReview from "../../components/review/new/NewReview";
 
 interface ItemDetailPageProps {
   id: string;
@@ -41,6 +42,7 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   // const [rating, setRating] = useState<number>(0);
 
   const showReviews = window.location.href.indexOf("no-reviews") === -1;
+  const showNewReview = true;
 
   return (
     <div className={"item-detail-page"}>
@@ -50,8 +52,13 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
         <div className={"reviews"}>
           <h2>Reviews</h2>
           <UIDivider />
-          <ReviewList  reviews={reviews}/>
+          <ReviewList reviews={reviews} />
         </div>
+      )}
+      {showNewReview && (
+        <>
+          <NewReview />
+        </>
       )}
       {/*<ConfigurableRating rating={rating} onSelectRating={setRating} /> {rating}*/}
     </div>
