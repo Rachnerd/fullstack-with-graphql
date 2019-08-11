@@ -32,7 +32,7 @@ public class Review {
         return user;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -46,5 +46,21 @@ public class Review {
 
     Long getItemId() {
         return itemId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -9,11 +9,11 @@ export enum ItemActionType {
 
 export interface FetchItem extends Action<ItemActionType.FETCH> {
   payload: {
-    id: string;
+    id: number;
   };
 }
 
-export function fetchItem(id: string): ItemActionsUnion {
+export function fetchItem(id: number): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH,
     payload: {
@@ -23,27 +23,23 @@ export function fetchItem(id: string): ItemActionsUnion {
 }
 
 export interface FetchItemSuccess extends Action<ItemActionType.FETCH_SUCCESS> {
-  payload: {
-    item: ItemModel;
-  };
+  payload: ItemModel;
 }
 export function fetchItemSuccessAction(item: ItemModel): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH_SUCCESS,
-    payload: {
-      item
-    }
+    payload: item
   };
 }
 
 export interface FetchItemError extends Action<ItemActionType.FETCH_ERROR> {
   payload: {
-    id: string;
+    id: number;
     status: number;
   };
 }
 
-export function fetchItemErrorAction(id: string, status: number): ItemActionsUnion {
+export function fetchItemErrorAction(id: number, status: number): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH_ERROR,
     payload: {

@@ -6,7 +6,7 @@ import { fetchItem } from "./state/item/item.actions";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const id = "1";
+  const id = 1;
   dispatch(fetchItem(id));
 
   return (
@@ -23,10 +23,8 @@ export default App;
  * @param e
  */
 window.onmessage = function(e) {
-  if (e.data == "scroll-down") {
+  if (e.data === "scroll-down") {
     window.scroll(0, 0);
-    const reviews = document.getElementsByClassName("reviews")[0];
-    (reviews as any).style.opacity = 0;
     setTimeout(() => {
       const limit = Math.max(
         document.body.scrollHeight,
@@ -40,8 +38,22 @@ window.onmessage = function(e) {
         top: limit,
         left: 0
       });
-      (reviews as any).style.opacity = 1;
-      (reviews as any).style.transition = "";
+    }, 500);
+  }
+  if (e.data === "scroll-down2") {
+    setTimeout(() => {
+      const limit = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+      window.scrollTo({
+        behavior: "smooth",
+        top: limit,
+        left: 0
+      });
     }, 500);
   }
 };

@@ -1,7 +1,8 @@
 export interface ItemModel {
-  id: string;
+  id: number;
   name: string;
   description: string;
   image: string;
   averageRating: number;
+  reviewIds: number[];
 }

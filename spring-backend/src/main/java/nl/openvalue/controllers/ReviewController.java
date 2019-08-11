@@ -1,14 +1,12 @@
 package nl.openvalue.controllers;
 
+import nl.openvalue.entities.PostReviewDto;
 import nl.openvalue.entities.Review;
 import nl.openvalue.entities.ReviewDto;
 import nl.openvalue.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +26,12 @@ public class ReviewController {
         return reviewService.getReviews().stream()
                 .map(ReviewDto::transform)
                 .collect(Collectors.toList());
+    }
+
+    @PostMapping()
+    public ResponseEntity postReviews(@RequestBody PostReviewDto newReview) {
+        Long newReviewId = reviewService.postReview(newReview);
+        return ResponseEntity.noContent().header("Location", newReviewId.toString()).build();
     }
 
     @GetMapping("/{id}")

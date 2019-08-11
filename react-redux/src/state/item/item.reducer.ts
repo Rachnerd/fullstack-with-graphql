@@ -1,46 +1,11 @@
 import { ItemActionsUnion, ItemActionType } from "./item.actions";
-import { Async, Normalized } from "../state.utils";
 import { ItemModel } from "./item.model";
+import { createAsyncReducer } from "../async.reducer";
 
-type ItemState = Normalized<Async<ItemModel>>;
-
-const initialState: ItemState = { byIds: {}, allIds: [] };
-
-const itemReducer = (state: ItemState = initialState, action: ItemActionsUnion): ItemState => {
-  switch (action.type) {
-    case ItemActionType.FETCH: {
-      const { id } = action.payload;
-      return {
-        allIds: [...state.allIds, ...(state.allIds.indexOf(id) === -1 ? [id] : [])],
-        byIds: {
-          ...state.byIds,
-          [id]: { data: undefined, error: undefined, loading: true }
-        }
-      };
-    }
-    case ItemActionType.FETCH_SUCCESS: {
-      const { item } = action.payload;
-      return {
-        allIds: state.allIds,
-        byIds: {
-          ...state.byIds,
-          [item.id]: { data: item, error: undefined, loading: false }
-        }
-      };
-    }
-    case ItemActionType.FETCH_ERROR: {
-      const { id, status } = action.payload;
-      return {
-        allIds: state.allIds,
-        byIds: {
-          ...state.byIds,
-          [id]: { data: undefined, error: status, loading: false }
-        }
-      };
-    }
-    default:
-      return state;
-  }
-};
+const itemReducer = createAsyncReducer<ItemModel, ItemActionsUnion>(
+  ItemActionType.FETCH,
+  ItemActionType.FETCH_SUCCESS,
+  ItemActionType.FETCH_ERROR
+);
 
 export default itemReducer;

@@ -12,7 +12,7 @@ const ConfigurableRating = ({ rating, onSelectRating, minRating = 1 }: Configura
   const [newRating, setNewRating] = useState<number>(rating);
 
   useEffect(() => {
-    if (rating === 0 && newRating !== 0) {
+    if (rating === 0) {
       setNewRating(0);
     }
   }, [rating]);

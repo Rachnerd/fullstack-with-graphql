@@ -1,7 +1,7 @@
 export interface ReviewModel {
-  id: string;
+  id: number;
   description?: string;
   rating: number;
-  userId: string;
-  itemId: string;
+  userId: number;
+  itemId: number;
 }
