@@ -6,12 +6,13 @@ import { Async } from "../../../state/state.utils";
 
 interface ReviewListProps {
   reviews: Async<ReviewModel>[];
+  limit?: number;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
+const ReviewList: React.FC<ReviewListProps> = ({ reviews, limit = 3 }) => {
   return (
     <ul>
-      {reviews.map((review, index) => (
+      {reviews.slice(0, limit - 1).map((review, index) => (
         <li key={index}>
           <Review review={review} />
           <UIDivider />

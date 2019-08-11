@@ -5,6 +5,7 @@ import classNames from "classnames";
 import "./Review.scss";
 import { Async } from "../../state/state.utils";
 import HttpError from "../../http-error/HttpError";
+import User from "../user/User";
 
 interface ReviewProps {
   className?: string;
@@ -23,19 +24,20 @@ const Review = ({ review: { data, loading, error }, className = "" }: ReviewProp
   if (!data) {
     return <p>No Data!</p>;
   }
-  const { rating, description } = data;
+  const { rating, description, userId } = data;
+
   return (
     <div className={classNames("review", className)}>
       <div className={"review__side"}>
-        <div className={"user"}>
-          <img
-            src={
-              "https://icon-library.net/images/no-profile-picture-icon-female/no-profile-picture-icon-female-0.jpg"
-            }
-            alt={"user"}
-          />
-          <span>Username</span>
-        </div>
+        <User user={{
+          loading: false,
+          data: {
+            id: 1,
+            image:  'https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg',
+            name: "Rachnerd"
+          }
+        }} />
+
         <Rating rating={rating} />
       </div>
       {description && (

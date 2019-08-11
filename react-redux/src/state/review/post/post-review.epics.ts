@@ -1,5 +1,5 @@
 import { Epic } from "redux-observable";
-import { map, mergeMap, tap } from "rxjs/operators";
+import { delay, map, mergeMap, tap } from "rxjs/operators";
 import {
   PostReview,
   PostReviewActionsUnion,
@@ -33,7 +33,8 @@ export const postReviewEpic: Epic<
       }
       const id = response.headers.get("Location");
       return postReviewSuccessAction(parseInt(id!));
-    })
+    }),
+    delay(1000)
   );
 
 export const fetchNewReviewEpic: Epic<

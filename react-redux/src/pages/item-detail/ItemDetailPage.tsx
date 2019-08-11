@@ -15,15 +15,18 @@ interface ItemDetailPageProps {
 const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { byIds: itemsById } = useSelector((state: AppState) => state.normalizedItems);
-  const { byIds: reviewsById, allIds } = useSelector((state: AppState) => state.normalizedReviews);
+  const { byIds: reviewsById } = useSelector((state: AppState) => state.normalizedReviews);
+  const { loading } = useSelector((state: AppState) => state.asyncReviewPost);
   const asyncItem = itemsById[id];
+
   const reviews = Object.keys(reviewsById)
     .map(id => reviewsById[id])
     .filter(({ data }) => data && data.itemId === id);
 
   const showReviews = window.location.href.indexOf("no-reviews") === -1;
-  const showNewReview = true;
+  const showNewReview = showReviews;
 
+  console.log(reviewsById)
   return (
     <div className={"item-detail-page"}>
       <Item item={asyncItem} />
@@ -38,6 +41,7 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
       {showNewReview && (
         <>
           <NewReview
+            disabled={loading}
             onSubmit={({ rating, description }) => dispatch(postReview(rating, description))}
           />
         </>

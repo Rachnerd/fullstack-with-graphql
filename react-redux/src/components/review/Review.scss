@@ -14,9 +14,6 @@
     }
 
     img {
-      width: 2em;
-      height: 2em;
-      border: 1px solid black;
     }
   }
   &__content {
@@ -33,5 +30,8 @@
   align-items: center;
   img  {
     margin-right: .8em;
+    width: 2em;
+    height: 2em;
+    border: 1px solid black;
   }
 }

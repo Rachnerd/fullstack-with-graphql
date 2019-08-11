@@ -12,7 +12,7 @@ import { fetchNewReviewEpic, postReviewEpic } from "./review/post/post-review.ep
 const rootReducer = combineReducers({
   normalizedItems: itemReducer,
   normalizedReviews: reviewReducer,
-  normalizedReviewPosts: postReviewReducer
+  asyncReviewPost: postReviewReducer
 });
 const rootEpic = combineEpics(
   fetchItemEpic,

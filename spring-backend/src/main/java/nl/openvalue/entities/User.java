@@ -14,6 +14,8 @@ public class User {
 
     private String email;
 
+    private String image;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Review> reviews;
 
@@ -26,6 +28,10 @@ public class User {
     }
 
     String getEmail() {
+        return email;
+    }
+
+    String getImage() {
         return email;
     }
 
