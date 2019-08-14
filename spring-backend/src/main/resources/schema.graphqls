@@ -1,0 +1,17 @@
+type Query {
+    item(id: Int!): Item
+}
+
+type Item {
+    id: ID!
+    name: String!
+    description: String!
+    image: String!
+    reviews: [Review!]!
+}
+
+type Review {
+    id: ID!
+    description: String!
+    rating: Float!
+}

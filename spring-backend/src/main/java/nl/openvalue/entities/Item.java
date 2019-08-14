@@ -35,7 +35,7 @@ public class Item {
         return image;
     }
 
-    List<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 }
