@@ -1,5 +1,5 @@
-import { Action } from "redux";
 import { ReviewModel } from "./review.model";
+import { ActionWithPayload } from "../state.utils";
 
 export enum ReviewActionType {
   FETCH = "[ReviewState] Fetch review",
@@ -7,11 +7,12 @@ export enum ReviewActionType {
   FETCH_ERROR = "[ReviewState] Fetch review error"
 }
 
-export interface FetchReview extends Action<ReviewActionType.FETCH> {
-  payload: {
+export type FetchReview = ActionWithPayload<
+  ReviewActionType.FETCH,
+  {
     id: number;
-  };
-}
+  }
+>;
 
 export function fetchReview(id: number): ReviewActionsUnion {
   return {
@@ -22,9 +23,7 @@ export function fetchReview(id: number): ReviewActionsUnion {
   };
 }
 
-export interface FetchReviewSuccess extends Action<ReviewActionType.FETCH_SUCCESS> {
-  payload: ReviewModel;
-}
+export type FetchReviewSuccess = ActionWithPayload<ReviewActionType.FETCH_SUCCESS, ReviewModel>;
 
 export function fetchReviewSuccessAction(review: ReviewModel): ReviewActionsUnion {
   return {
@@ -33,12 +32,13 @@ export function fetchReviewSuccessAction(review: ReviewModel): ReviewActionsUnio
   };
 }
 
-export interface FetchReviewError extends Action<ReviewActionType.FETCH_ERROR> {
-  payload: {
+export type FetchReviewError = ActionWithPayload<
+  ReviewActionType.FETCH_ERROR,
+  {
     id: number;
     status: number;
-  };
-}
+  }
+>;
 
 export function fetchReviewErrorAction(id: number, status: number): ReviewActionsUnion {
   return {

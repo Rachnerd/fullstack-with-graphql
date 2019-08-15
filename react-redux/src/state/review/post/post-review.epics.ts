@@ -25,7 +25,7 @@ export const postReviewEpic: Epic<
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ description, rating, itemId: "1" }) // body data type must match "Content-Type" header
+        body: JSON.stringify({ description, rating, itemId: "1" })
       });
 
       if (!response.ok) {
@@ -33,11 +33,10 @@ export const postReviewEpic: Epic<
       }
       const id = response.headers.get("Location");
       return postReviewSuccessAction(parseInt(id!));
-    }),
-    delay(1000)
+    })
   );
 
-export const fetchNewReviewEpic: Epic<
+export const fetchReviewAfterPost: Epic<
   PostReviewActionsUnion | ReviewActionsUnion,
   PostReviewActionsUnion | ReviewActionsUnion,
   AppState

@@ -1,10 +1,10 @@
 import { Epic } from "redux-observable";
 import {
-    FetchReview,
-    fetchReviewErrorAction,
-    fetchReviewSuccessAction,
-    ReviewActionsUnion,
-    ReviewActionType
+  FetchReview,
+  fetchReviewErrorAction,
+  fetchReviewSuccessAction,
+  ReviewActionsUnion,
+  ReviewActionType
 } from "./review.actions";
 import { AppState } from "../state.model";
 import { mergeMap } from "rxjs/operators";

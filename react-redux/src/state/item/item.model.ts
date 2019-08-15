@@ -4,5 +4,5 @@ export interface ItemModel {
   description: string;
   image: string;
   averageRating: number;
-  reviewIds: number[];
+  reviews: number[];
 }

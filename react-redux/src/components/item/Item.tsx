@@ -12,7 +12,7 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {
-  const { loading, data, error } = item;
+  const { loading, data, error } = item || { loading: true, data: undefined, error: undefined };
 
   if (loading) {
     return <p>Loading</p>;
@@ -42,7 +42,7 @@ const Item: React.FC<ItemProps> = ({ item }) => {
       <UIDivider />
       <img className={"item__image"} src={image} alt={"item"} />
       <UIDivider />
-      <h2>Item description</h2>
+      <h3>Item description</h3>
       <p>{description}</p>
     </div>
   );

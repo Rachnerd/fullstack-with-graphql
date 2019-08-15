@@ -1,5 +1,5 @@
-import { Action } from "redux";
 import { ItemModel } from "./item.model";
+import { ActionWithPayload } from "../state.utils";
 
 export enum ItemActionType {
   FETCH = "[ItemState] Fetch item",
@@ -7,11 +7,7 @@ export enum ItemActionType {
   FETCH_ERROR = "[ItemState] Fetch item error"
 }
 
-export interface FetchItem extends Action<ItemActionType.FETCH> {
-  payload: {
-    id: number;
-  };
-}
+export type FetchItem = ActionWithPayload<ItemActionType.FETCH, { id: number }>;
 
 export function fetchItem(id: number): ItemActionsUnion {
   return {
@@ -22,9 +18,8 @@ export function fetchItem(id: number): ItemActionsUnion {
   };
 }
 
-export interface FetchItemSuccess extends Action<ItemActionType.FETCH_SUCCESS> {
-  payload: ItemModel;
-}
+export type FetchItemSuccess = ActionWithPayload<ItemActionType.FETCH_SUCCESS, ItemModel>;
+
 export function fetchItemSuccessAction(item: ItemModel): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH_SUCCESS,
@@ -32,13 +27,13 @@ export function fetchItemSuccessAction(item: ItemModel): ItemActionsUnion {
   };
 }
 
-export interface FetchItemError extends Action<ItemActionType.FETCH_ERROR> {
-  payload: {
+export type FetchItemError = ActionWithPayload<
+  ItemActionType.FETCH_ERROR,
+  {
     id: number;
     status: number;
-  };
-}
-
+  }
+>;
 export function fetchItemErrorAction(id: number, status: number): ItemActionsUnion {
   return {
     type: ItemActionType.FETCH_ERROR,

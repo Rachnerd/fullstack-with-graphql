@@ -12,6 +12,8 @@ interface ItemDetailPageProps {
   id: number;
 }
 
+const REVIEW_LIMIT = 3;
+
 const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { byIds: itemsById } = useSelector((state: AppState) => state.normalizedItems);
@@ -19,14 +21,16 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const { loading } = useSelector((state: AppState) => state.asyncReviewPost);
   const asyncItem = itemsById[id];
 
-  const reviews = Object.keys(reviewsById)
-    .map(id => reviewsById[id])
-    .filter(({ data }) => data && data.itemId === id);
+  const reviews =
+    (asyncItem.data &&
+      asyncItem.data.reviews &&
+      asyncItem.data.reviews.map(id => reviewsById[id])) ||
+    [];
 
-  const showReviews = window.location.href.indexOf("no-reviews") === -1;
-  const showNewReview = showReviews;
+  const isReviewsLoading = reviews.some(({ loading }) => loading);
 
-  console.log(reviewsById)
+  const showReviews = !isReviewsLoading && window.location.href.indexOf("no-reviews") === -1;
+
   return (
     <div className={"item-detail-page"}>
       <Item item={asyncItem} />
@@ -35,10 +39,15 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
         <div className={"reviews"}>
           <h2>Reviews</h2>
           <UIDivider />
-          <ReviewList reviews={reviews.reverse()} />
+          <ReviewList reviews={reviews.reverse()} limit={REVIEW_LIMIT} />
+          <p>
+            Showing {reviews.length < REVIEW_LIMIT ? reviews.length : REVIEW_LIMIT} out of{" "}
+            {reviews.length}
+          </p>
+          <UIDivider />
         </div>
       )}
-      {showNewReview && (
+      {showReviews && (
         <>
           <NewReview
             disabled={loading}

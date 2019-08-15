@@ -12,7 +12,7 @@ interface ReviewListProps {
 const ReviewList: React.FC<ReviewListProps> = ({ reviews, limit = 3 }) => {
   return (
     <ul>
-      {reviews.slice(0, limit - 1).map((review, index) => (
+      {reviews.slice(0, limit).map((review, index) => (
         <li key={index}>
           <Review review={review} />
           <UIDivider />
