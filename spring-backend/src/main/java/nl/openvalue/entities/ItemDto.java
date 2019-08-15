@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 @Data
 public class ItemDto {
     public static ItemDto transform(Item item) {
-        List<Long> reviewIds = item.getReviews().stream().map(Review::getId).collect(Collectors.toList());
-        ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getImage(), reviewIds);
+        ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getImage());
 
         double totalRating = item.getReviews().stream().map(Review::getRating).reduce(Double::sum).orElse(-1.0);
         int amountOfRatings = item.getReviews().size();
@@ -25,7 +24,7 @@ public class ItemDto {
             averageRating = BigDecimal.valueOf(totalRating).divide(BigDecimal.valueOf(amountOfRatings), RoundingMode.HALF_EVEN).doubleValue();
         }
 
-        itemDto.setAverageRating(averageRating);
+//        itemDto.setAverageRating(averageRating);
         return itemDto;
     }
 
@@ -41,9 +40,6 @@ public class ItemDto {
     @NonNull
     private String image;
 
-    @NonNull
-    private List<Long> reviewIds;
-
-    @Setter
-    private double averageRating;
+//    @NonNull
+//    private List<Long> reviewIds;
 }
