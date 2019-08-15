@@ -15,6 +15,6 @@ public class ItemQueryResolver implements GraphQLQueryResolver {
     }
 
     public Item item(Long id) {
-        return itemService.getItem(id).orElseThrow(() -> new CustomException(404, "Not found"));
+        return itemService.getItem(id);
     }
 }

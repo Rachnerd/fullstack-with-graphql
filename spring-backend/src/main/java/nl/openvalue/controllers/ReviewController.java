@@ -22,25 +22,27 @@ public class ReviewController {
     }
 
     @GetMapping()
-    public List<ReviewDto> getReviews() {
-        return reviewService.getReviews().stream()
-                .map(ReviewDto::transform)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<ReviewDto>> getReviews() {
+        return ResponseEntity.ok(
+                reviewService.getReviews()
+                        .stream()
+                        .map(ReviewDto::transform)
+                        .collect(Collectors.toList())
+        );
     }
 
     @PostMapping()
     public ResponseEntity postReviews(@RequestBody PostReviewDto newReview) {
         Long newReviewId = reviewService.postReview(newReview);
-        return ResponseEntity.noContent().header("Location", newReviewId.toString()).build();
+        return ResponseEntity
+                .noContent()
+                .header("Location", newReviewId.toString())
+                .build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReviewDto> getReview(@PathVariable String id) {
-        Optional<Review> optionalReview = reviewService.getReview(Long.parseLong(id));
-        if (optionalReview.isPresent()) {
-            return ResponseEntity.ok(ReviewDto.transform(optionalReview.get()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity
+                .ok(ReviewDto.transform(reviewService.getReview(Long.parseLong(id))));
     }
 }

@@ -1,27 +1,26 @@
 package nl.openvalue.controllers;
 
-import nl.openvalue.entities.Item;
 import nl.openvalue.entities.ItemDto;
+import nl.openvalue.entities.Review;
+import nl.openvalue.entities.ReviewDto;
 import nl.openvalue.services.ItemService;
-import nl.openvalue.services.ReviewService;
 import nl.openvalue.utils.PagedData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/items")
 public class ItemController {
 
     private ItemService itemService;
-    private ReviewService reviewService;
 
-    public ItemController(@Autowired ItemService itemService, @Autowired ReviewService reviewService) {
+    public ItemController(@Autowired ItemService itemService) {
         this.itemService = itemService;
-        this.reviewService = reviewService;
     }
 
     @GetMapping()
@@ -35,33 +34,29 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemDto> getItem(@PathVariable String id) {
-        Optional<Item> optionalItem = itemService.getItem(Long.parseLong(id));
-        if (optionalItem.isPresent()) {
-            return ResponseEntity.ok(ItemDto.transform(optionalItem.get()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity
+                .ok(ItemDto.transform(
+                        itemService.getItem(Long.parseLong(id))));
     }
 
     @GetMapping("/{id}/reviews")
-    public ResponseEntity<String> getItemReviews(@PathVariable String id) {
-        Optional<Item> optionalItem = itemService.getItem(Long.parseLong(id));
-        if (optionalItem.isPresent()) {
-            return ResponseEntity.ok("");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<ReviewDto>> getItemReviews(@PathVariable Long id) {
+        return ResponseEntity
+                .ok(itemService.getItemReviews(id)
+                        .stream()
+                        .map(ReviewDto::transform)
+                        .collect(Collectors.toList())
+                );
     }
 
     @GetMapping("/{id}/reviews/average")
-    public ResponseEntity<String> getItemReviewAverage(@PathVariable String id) {
-//        double averageRating;
-//
-//        if (amountOfRatings == 0) {
-//            averageRating = -1;
-//        } else {
-//            averageRating = BigDecimal.valueOf(totalRating).divide(BigDecimal.valueOf(amountOfRatings), RoundingMode.HALF_EVEN).doubleValue();
-//        }
-        return ResponseEntity.ok("");
+    public ResponseEntity<Double> getItemReviewAverage(@PathVariable Long id) {
+        OptionalDouble average = itemService.getItemReviews(id)
+                .stream()
+                .mapToDouble(Review::getRating)
+                .average();
+
+        return ResponseEntity
+                .ok(average.orElse(0.0));
     }
 }

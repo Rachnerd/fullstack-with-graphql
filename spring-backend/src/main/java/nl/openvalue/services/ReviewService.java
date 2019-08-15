@@ -2,12 +2,12 @@ package nl.openvalue.services;
 
 import nl.openvalue.entities.PostReviewDto;
 import nl.openvalue.entities.Review;
+import nl.openvalue.exceptions.NotFoundException;
 import nl.openvalue.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -21,8 +21,8 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-    public Optional<Review> getReview(Long id) {
-        return reviewRepository.findById(id);
+    public Review getReview(Long id) {
+        return reviewRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public Long postReview(PostReviewDto postReviewDto) {

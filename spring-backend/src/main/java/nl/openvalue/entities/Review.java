@@ -28,7 +28,7 @@ public class Review {
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    User getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -36,15 +36,15 @@ public class Review {
         return id;
     }
 
-    Double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    Long getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
