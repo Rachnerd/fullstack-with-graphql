@@ -1,0 +1,35 @@
+.new-review {
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 0.8em;
+    margin-bottom: 0.8em;
+  }
+
+  textarea {
+    border-top: 1px solid grey;
+    margin-bottom: 0.8em;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .configurable-rating {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  img  {
+    margin-right: .8em;
+  }
+}

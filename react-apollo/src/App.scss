@@ -1,0 +1,31 @@
+html {
+  //scroll-behavior: smooth;
+}
+
+h2 {
+  font-size: 1.4em;
+  margin-bottom: 0.4em;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+p {
+  line-height: 1.2;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  padding-bottom: 4em;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+}
