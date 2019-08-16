@@ -1,15 +1,13 @@
 package nl.openvalue.controllers;
 
-import nl.openvalue.entities.PostReviewDto;
-import nl.openvalue.entities.Review;
-import nl.openvalue.entities.ReviewDto;
+import nl.openvalue.dtos.PostReviewDto;
+import nl.openvalue.dtos.ReviewDto;
 import nl.openvalue.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController

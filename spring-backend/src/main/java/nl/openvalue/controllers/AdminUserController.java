@@ -1,6 +1,6 @@
 package nl.openvalue.controllers;
 
-import nl.openvalue.entities.UserAdminDto;
+import nl.openvalue.dtos.UserAdminDto;
 import nl.openvalue.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package nl.openvalue.controllers;
 
 import nl.openvalue.entities.User;
-import nl.openvalue.entities.UserDto;
+import nl.openvalue.dtos.UserDto;
 import nl.openvalue.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

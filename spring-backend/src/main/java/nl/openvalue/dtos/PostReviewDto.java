@@ -1,4 +1,4 @@
-package nl.openvalue.entities;
+package nl.openvalue.dtos;
 
 import lombok.Data;
 import lombok.NonNull;

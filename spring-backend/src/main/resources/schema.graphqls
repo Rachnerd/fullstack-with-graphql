@@ -7,11 +7,18 @@ type Item {
     name: String!
     description: String!
     image: String!
+    seller: User!
     reviews: [Review!]!
+    averageReviews: Float!
 }
 
 type Review {
     id: ID!
     description: String!
     rating: Float!
+    author: User!
+}
+
+type User {
+    name: String!
 }

@@ -1,8 +1,8 @@
 package nl.openvalue.controllers;
 
-import nl.openvalue.entities.ItemDto;
+import nl.openvalue.dtos.ItemDto;
 import nl.openvalue.entities.Review;
-import nl.openvalue.entities.ReviewDto;
+import nl.openvalue.dtos.ReviewDto;
 import nl.openvalue.services.ItemService;
 import nl.openvalue.utils.PagedData;
 import org.springframework.beans.factory.annotation.Autowired;

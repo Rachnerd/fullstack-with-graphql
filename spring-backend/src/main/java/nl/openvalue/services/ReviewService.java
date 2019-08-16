@@ -1,6 +1,6 @@
 package nl.openvalue.services;
 
-import nl.openvalue.entities.PostReviewDto;
+import nl.openvalue.dtos.PostReviewDto;
 import nl.openvalue.entities.Review;
 import nl.openvalue.exceptions.NotFoundException;
 import nl.openvalue.repositories.ReviewRepository;

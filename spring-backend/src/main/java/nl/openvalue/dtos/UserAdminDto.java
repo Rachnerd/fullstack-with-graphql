@@ -1,7 +1,8 @@
-package nl.openvalue.entities;
+package nl.openvalue.dtos;
 
 import lombok.Data;
 import lombok.NonNull;
+import nl.openvalue.entities.User;
 
 @Data
 public class UserAdminDto {

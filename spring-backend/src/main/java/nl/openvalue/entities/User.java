@@ -19,23 +19,28 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Review> reviews;
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getEmail() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getEmail() {
         return email;
     }
 
-    String getImage() {
+    public String getImage() {
         return email;
     }
 
-    List<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 }

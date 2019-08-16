@@ -19,19 +19,19 @@ public class Item {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
     private List<Review> reviews;
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    String getImage() {
+    public String getImage() {
         return image;
     }
 
