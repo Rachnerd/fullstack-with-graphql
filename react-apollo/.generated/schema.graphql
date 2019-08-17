@@ -1,0 +1,66 @@
+type Item {
+  id: ID!
+  name: String!
+  description: String!
+  image: String!
+  seller: User!
+  reviews(page: Int, size: Int): ReviewPage!
+  averageRating: Float!
+}
+
+type ItemPage implements Page {
+  content: [Item!]!
+  size: Int!
+  number: Int!
+  totalPages: Int!
+  totalElements: Int!
+}
+
+type Mutation {
+  postReview(review: NewReview!): Review!
+}
+
+input NewReview {
+  description: String!
+  rating: Float!
+  itemId: String!
+}
+
+interface Page {
+  size: Int!
+  number: Int!
+  totalPages: Int!
+  totalElements: Int!
+}
+
+input Paging {
+  size: Int
+  page: Int
+  sort: String
+}
+
+type Query {
+  item(id: Int!): Item
+  items(paging: Paging!): ItemPage!
+}
+
+type Review {
+  id: ID!
+  description: String!
+  rating: Float!
+  author: User!
+}
+
+type ReviewPage implements Page {
+  content: [Review!]!
+  size: Int!
+  totalPages: Int!
+  totalElements: Int!
+  number: Int!
+}
+
+type User {
+  name: String!
+  email: String!
+  image: String!
+}
