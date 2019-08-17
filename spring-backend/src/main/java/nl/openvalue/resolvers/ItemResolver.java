@@ -21,13 +21,8 @@ public class ItemResolver implements GraphQLResolver<ItemGqlDto> {
     }
 
     public Page<Review> reviews(ItemGqlDto item, int page, int size) {
-        if (item.getReviews() == null) {
-            int pageSize = size == 0 ? Integer.MAX_VALUE : size;
-            Page<Review> reviews = reviewService.findByItemId(item.getId(), page, pageSize);
-            item.setReviews(reviews);
-        }
-
-        return item.getReviews();
+        int pageSize = size == 0 ? Integer.MAX_VALUE : size;
+        return reviewService.findByItemId(item.getId(), page, pageSize);
     }
 
     public Double averageRating(ItemGqlDto item) {

@@ -21,7 +21,6 @@ public class ReviewResolver implements GraphQLResolver<Review> {
     }
 
     public User author(Review review) {
-        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         return userService.getUser(review.getUserId());
     }
 }

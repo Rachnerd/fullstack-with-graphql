@@ -17,7 +17,7 @@ public class ItemsQueryResolver implements GraphQLQueryResolver {
         this.itemService = itemService;
     }
 
-    public Page<ItemGqlDto> items(PageRequestDto pageable) {
-        return itemService.getItems(PageRequest.of(pageable.getPage(), pageable.getSize())).map(ItemGqlDto::transform);
+    public Page<ItemGqlDto> items(int page, int size) {
+        return itemService.getItems(PageRequest.of(page, size)).map(ItemGqlDto::transform);
     }
 }

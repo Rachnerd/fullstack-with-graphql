@@ -20,6 +20,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(NotFoundException::new);
     }
