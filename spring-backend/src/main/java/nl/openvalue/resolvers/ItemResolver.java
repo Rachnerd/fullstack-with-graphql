@@ -4,45 +4,37 @@ import com.coxautodev.graphql.tools.GraphQLResolver;
 import nl.openvalue.dtos.ItemGqlDto;
 import nl.openvalue.entities.Review;
 import nl.openvalue.entities.User;
-import nl.openvalue.repositories.ReviewRepository;
+import nl.openvalue.services.ReviewService;
+import nl.openvalue.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class ItemResolver implements GraphQLResolver<ItemGqlDto> {
-    private ReviewRepository reviewRepository;
+    private ReviewService reviewService;
+    private UserService userService;
 
-    public ItemResolver(@Autowired ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
+    public ItemResolver(@Autowired ReviewService reviewService, @Autowired UserService userService) {
+        this.reviewService = reviewService;
+        this.userService = userService;
     }
 
-    public List<Review> reviews(ItemGqlDto item) {
+    public Page<Review> reviews(ItemGqlDto item, int page, int size) {
         if (item.getReviews() == null) {
-            List<Review> reviews = reviewRepository.findByItemId(item.getId());
+            int pageSize = size == 0 ? Integer.MAX_VALUE : size;
+            Page<Review> reviews = reviewService.findByItemId(item.getId(), page, pageSize);
             item.setReviews(reviews);
         }
 
         return item.getReviews();
     }
 
-    public Double averageReviews(ItemGqlDto item) {
-        if (item.getReviews() == null) {
-            List<Review> reviews = reviewRepository.findByItemId(item.getId());
-            item.setReviews(reviews);
-        }
-
-        return item.getReviews()
-                .stream()
-                .mapToDouble(Review::getRating)
-                .average()
-                .orElse(0.0);
+    public Double averageRating(ItemGqlDto item) {
+        return reviewService.calculateAverageRating(item.getId());
     }
 
     public User seller(ItemGqlDto item) {
-        User user = new User();
-        user.setName("TEST");
-        return user;
+        return userService.getUser(item.getUserId());
     }
 }

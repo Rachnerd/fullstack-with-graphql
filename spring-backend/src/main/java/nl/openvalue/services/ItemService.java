@@ -8,6 +8,8 @@ import nl.openvalue.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +25,12 @@ public class ItemService {
         this.reviewRepository = reviewRepository;
     }
 
-    public Page<Item> getItems(Integer page, Integer size) {
-        return itemRepository.findAll(PageRequest.of(page, size));
+    public Page<Item> getItems(Pageable pageable) {
+        return itemRepository.findAll(pageable);
+    }
+
+    public Page<Item> getItems() {
+        return itemRepository.findAll(PageRequest.of(0, Integer.MAX_VALUE));
     }
 
     public Item getItem(Long id) {
@@ -34,12 +40,12 @@ public class ItemService {
     }
 
 
-    public List<Review> getItemReviews(Long id) {
+    public Page<Review> getItemReviews(Long id) {
         if (!itemRepository.findById(id).isPresent()) {
             throw new NotFoundException();
         }
 
-        return reviewRepository.findByItemId(id);
+        return reviewRepository.findByItemId(id, PageRequest.of(0, 3));
     }
 
 }

@@ -1,6 +1,5 @@
 package nl.openvalue.controllers;
 
-import nl.openvalue.entities.User;
 import nl.openvalue.dtos.UserDto;
 import nl.openvalue.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,11 +31,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable String id) {
-        Optional<User> optionalUser = userService.getUser(Long.parseLong(id));
-        if (optionalUser.isPresent()) {
-            return ResponseEntity.ok(UserDto.transform(optionalUser.get()));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(
+                UserDto.transform(userService.getUser(Long.parseLong(id)))
+        );
     }
 }

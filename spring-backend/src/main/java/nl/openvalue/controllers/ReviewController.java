@@ -4,6 +4,7 @@ import nl.openvalue.dtos.PostReviewDto;
 import nl.openvalue.dtos.ReviewDto;
 import nl.openvalue.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,9 @@ public class ReviewController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ReviewDto>> getReviews() {
+    public ResponseEntity<List<ReviewDto>> getReviews(Pageable pageable) {
         return ResponseEntity.ok(
-                reviewService.getReviews()
+                reviewService.getReviews(pageable)
                         .stream()
                         .map(ReviewDto::transform)
                         .collect(Collectors.toList())
@@ -31,7 +32,7 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity postReviews(@RequestBody PostReviewDto newReview) {
-        Long newReviewId = reviewService.postReview(newReview);
+        Long newReviewId = reviewService.addReview(newReview);
         return ResponseEntity
                 .noContent()
                 .header("Location", newReviewId.toString())

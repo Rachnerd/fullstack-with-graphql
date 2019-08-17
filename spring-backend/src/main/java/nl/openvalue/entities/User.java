@@ -37,7 +37,7 @@ public class User {
     }
 
     public String getImage() {
-        return email;
+        return image;
     }
 
     public List<Review> getReviews() {

@@ -1,13 +1,17 @@
 package nl.openvalue.controllers;
 
 import nl.openvalue.dtos.ItemDto;
-import nl.openvalue.entities.Review;
 import nl.openvalue.dtos.ReviewDto;
+import nl.openvalue.entities.Review;
 import nl.openvalue.services.ItemService;
 import nl.openvalue.utils.PagedData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.OptionalDouble;
@@ -24,9 +28,9 @@ public class ItemController {
     }
 
     @GetMapping()
-    public ResponseEntity<PagedData<ItemDto>> getPagedItems(@RequestParam Integer page, @RequestParam Integer size) {
+    public ResponseEntity<PagedData<ItemDto>> getPagedItems(Pageable pageable) {
         return ResponseEntity.ok(new PagedData<>(
-                        itemService.getItems(page, size)
+                        itemService.getItems(pageable)
                                 .map(ItemDto::transform)
                 )
         );

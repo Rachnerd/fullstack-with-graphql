@@ -6,13 +6,14 @@ import lombok.NonNull;
 import lombok.Setter;
 import nl.openvalue.entities.Item;
 import nl.openvalue.entities.Review;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 @Data
 public class ItemGqlDto {
     public static ItemGqlDto transform(Item item) {
-        return new ItemGqlDto(item.getId(), item.getName(), item.getDescription(), item.getImage());
+        return new ItemGqlDto(item.getId(), item.getName(), item.getDescription(), item.getImage(), item.getUserId());
     }
 
     @NonNull
@@ -27,9 +28,12 @@ public class ItemGqlDto {
     @NonNull
     private String image;
 
+    @NonNull
+    private Long userId;
+
     @Setter
     @Getter
-    private List<Review> reviews;
+    private Page<Review> reviews;
 
     @Setter
     @Getter
