@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+
 @Service
 public class ReviewService {
     private ReviewRepository reviewRepository;
@@ -19,6 +21,7 @@ public class ReviewService {
     }
 
     public Page<Review> getReviews(Pageable pageable) {
+
         return reviewRepository.findAll(pageable);
     }
 
@@ -40,8 +43,12 @@ public class ReviewService {
         return reviewRepository.findByItemId(itemId, PageRequest.of(page, size));
     }
 
-
     public Double calculateAverageRating(long itemId) {
-        return reviewRepository.calculateAverageRating(itemId).orElse(0.0);
+        return reviewRepository.calculateAverageRating(itemId)
+                .map(average -> {
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    return Double.parseDouble(df.format(average));
+                })
+                .orElse(0.0);
     }
 }
