@@ -1,5 +1,4 @@
 import * as React from "react";
-import { UserModel } from "../../state/user/user.model";
 import { GQLUser } from "../../../.generated/gql.model";
 
 interface SellerProps {

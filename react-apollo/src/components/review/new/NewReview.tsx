@@ -5,6 +5,8 @@ import ConfigurableRating from "../../rating/configurable/ConfigurableRating";
 import User from "../../user/User";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { REVIEW_FRAGMENT } from "../../../fragments/review.fragments";
+import { PAGE_FRAGMENT } from "../../../fragments/page.fragments";
 
 interface NewReviewFormValues {
   rating: number;
@@ -59,26 +61,20 @@ const NewReview = ({ onSubmit, itemId }: NewReviewProps) => {
       refetchQueries: [
         {
           query: gql`
-                  query Items {
-                      item(id: ${itemId}) {
-                          averageRating
-                          reviews(page: 0, size: 3) {
-                              content {
-                                  description
-                                  rating
-                                  author {
-                                      name
-                                      image
-                                  }
-                              }
-                              number
-                              size
-                              totalElements
-                              totalPages
-                          }
-                      }
+            query Item($id: Int!, $page: Int!, $size: Int!) {
+              item(id: $id) {
+                reviews(page: $page, size: $size) {
+                  ...PageFragment
+                  content {
+                    ...ReviewFragment
                   }
-              `
+                }
+              }
+            }
+            ${PAGE_FRAGMENT}
+            ${REVIEW_FRAGMENT}
+          `,
+          variables: { id: 1, page: 0, size: 3 }
         }
       ],
       awaitRefetchQueries: true
@@ -92,13 +88,10 @@ const NewReview = ({ onSubmit, itemId }: NewReviewProps) => {
       <div className={"new-review__rating"}>
         <User
           user={{
-            loading: false,
-            data: {
-              id: 1,
-              image:
-                "https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg",
-              name: "Rachnerd"
-            }
+            image:
+              "https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg",
+            name: "Rachnerd",
+            email: ""
           }}
         />
         <ConfigurableRating rating={rating} onSelectRating={setRating} />

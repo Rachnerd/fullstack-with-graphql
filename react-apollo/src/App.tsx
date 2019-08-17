@@ -19,3 +19,43 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+/**
+ * Integration with presentation.
+ * @param e
+ */
+window.onmessage = function(e) {
+    if (e.data === "scroll-down") {
+        window.scroll(0, 0);
+        setTimeout(() => {
+            const limit = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            window.scrollTo({
+                behavior: "smooth",
+                top: limit,
+                left: 0
+            });
+        }, 500);
+    }
+    if (e.data === "scroll-down2") {
+        setTimeout(() => {
+            const limit = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            window.scrollTo({
+                behavior: "smooth",
+                top: limit,
+                left: 0
+            });
+        }, 500);
+    }
+};

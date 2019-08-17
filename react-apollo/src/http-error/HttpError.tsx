@@ -1,11 +1,10 @@
-import { HTTP_STATUS_CODE } from "../state/state.model";
 import * as React from "react";
 
 const HttpError = ({ error }: Record<"error", number>) => (
   <p>
-    {error === HTTP_STATUS_CODE.UNAUTHORIZED
+    {error === 401
       ? "Unauthorized!"
-      : error === HTTP_STATUS_CODE.NOT_FOUND
+      : error === 404
       ? "Not found!"
       : "???"}{" "}
   </p>
