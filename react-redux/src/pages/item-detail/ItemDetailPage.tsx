@@ -39,7 +39,7 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
         <div className={"reviews"}>
           <h2>Reviews</h2>
           <UIDivider />
-          <ReviewList reviews={reviews.reverse()} limit={REVIEW_LIMIT} />
+          <ReviewList reviews={reviews} limit={REVIEW_LIMIT} />
           <p>
             Showing {reviews.length < REVIEW_LIMIT ? reviews.length : REVIEW_LIMIT} out of{" "}
             {reviews.length}
@@ -55,7 +55,6 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
           />
         </>
       )}
-      {/*<ConfigurableRating rating={rating} onSelectRating={setRating} /> {rating}*/}
     </div>
   );
 };
