@@ -6,26 +6,15 @@ import "./Review.scss";
 import { Async } from "../../state/state.utils";
 import HttpError from "../../http-error/HttpError";
 import User from "../user/User";
+import { GQLReview } from "../../../.generated/gql.model";
 
 interface ReviewProps {
   className?: string;
-  review: Async<ReviewModel>;
+  review: GQLReview;
 }
 
-const Review = ({ review: { data, loading, error }, className = "" }: ReviewProps) => {
-  if (loading) {
-    return <p>Loading</p>;
-  }
-
-  if (error) {
-    return <HttpError error={error} />;
-  }
-
-  if (!data) {
-    return <p>No Data!</p>;
-  }
-  const { rating, description, userId } = data;
-
+const Review = ({ review, className = "" }: ReviewProps) => {
+  const { rating, description } = review;
   return (
     <div className={classNames("review", className)}>
       <div className={"review__side"}>

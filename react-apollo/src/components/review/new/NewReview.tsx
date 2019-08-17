@@ -2,9 +2,9 @@ import * as React from "react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import "./NewReview.scss";
 import ConfigurableRating from "../../rating/configurable/ConfigurableRating";
-import { useSelector } from "react-redux";
-import { AppState } from "../../../state/state.model";
 import User from "../../user/User";
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 interface NewReviewFormValues {
   rating: number;
@@ -12,13 +12,33 @@ interface NewReviewFormValues {
 }
 
 interface NewReviewProps {
-  disabled?: boolean;
-  onSubmit: (values: NewReviewFormValues) => void;
+  itemId: number;
+  onSubmit?: (values: NewReviewFormValues) => void;
 }
 
-const NewReview = ({ onSubmit, disabled = false }: NewReviewProps) => {
+const NewReview = ({ onSubmit, itemId }: NewReviewProps) => {
   const [rating, setRating] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
+  const [mutation] = useMutation(gql`
+    mutation PostReview(
+      $itemId: String!
+      $description: String!
+      $rating: Float!
+    ) {
+      postReview(
+        review: { itemId: $itemId, description: $description, rating: $rating }
+      ) {
+        id
+        description
+        rating
+        author {
+          name
+          image
+        }
+      }
+    }
+  `);
+
   const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
   };
@@ -27,9 +47,42 @@ const NewReview = ({ onSubmit, disabled = false }: NewReviewProps) => {
     setDescription("");
   };
 
-  const onReviewSubmit = (event: FormEvent) => {
+  const onReviewSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    onSubmit({ rating, description });
+    onSubmit && onSubmit({ rating, description });
+    await mutation({
+      variables: {
+        itemId,
+        description,
+        rating
+      },
+      refetchQueries: [
+        {
+          query: gql`
+                  query Items {
+                      item(id: ${itemId}) {
+                          averageRating
+                          reviews(page: 0, size: 3) {
+                              content {
+                                  description
+                                  rating
+                                  author {
+                                      name
+                                      image
+                                  }
+                              }
+                              number
+                              size
+                              totalElements
+                              totalPages
+                          }
+                      }
+                  }
+              `
+        }
+      ],
+      awaitRefetchQueries: true
+    });
     resetForm();
     return true;
   };
@@ -51,8 +104,13 @@ const NewReview = ({ onSubmit, disabled = false }: NewReviewProps) => {
         <ConfigurableRating rating={rating} onSelectRating={setRating} />
       </div>
       <p>Leave a message (optional)</p>
-      <textarea disabled={disabled} value={description} onChange={onDescriptionChange} rows={4} />
-      <button disabled={disabled || rating === 0}>Post a review</button>
+      <textarea
+        disabled={false}
+        value={description}
+        onChange={onDescriptionChange}
+        rows={4}
+      />
+      <button disabled={false || rating === 0}>Post a review</button>
     </form>
   );
 };
