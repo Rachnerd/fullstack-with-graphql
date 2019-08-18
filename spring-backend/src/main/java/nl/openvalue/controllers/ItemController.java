@@ -6,6 +6,7 @@ import nl.openvalue.services.ItemService;
 import nl.openvalue.services.ReviewService;
 import nl.openvalue.utils.PagedData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,8 @@ public class ItemController {
     private ItemService itemService;
     private ReviewService reviewService;
 
-    public ItemController(@Autowired ReviewService reviewService) {
+    public ItemController(@Autowired ItemService itemService, @Autowired ReviewService reviewService) {
+        this.itemService = itemService;
         this.reviewService = reviewService;
     }
 
@@ -44,16 +46,14 @@ public class ItemController {
     }
 
     @GetMapping("/{id}/reviews")
-    public ResponseEntity<List<ReviewDto>> getItemReviews(@PathVariable Long id) {
+    public ResponseEntity<Page<ReviewDto>> getItemReviews(@PathVariable Long id, Pageable pageable) {
         return ResponseEntity
-                .ok(itemService.getItemReviews(id)
-                        .stream()
+                .ok(itemService.getItemReviews(id, pageable)
                         .map(ReviewDto::transform)
-                        .collect(Collectors.toList())
                 );
     }
 
-    @GetMapping("/{id}/reviews/average")
+    @GetMapping("/{id}/reviews/averageRating")
     public ResponseEntity<Double> getItemReviewAverage(@PathVariable Long id) {
         return ResponseEntity
                 .ok(reviewService.calculateAverageRating(id));

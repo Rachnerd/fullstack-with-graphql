@@ -7,7 +7,7 @@ import nl.openvalue.entities.Item;
 @Data
 public class ItemDto {
     public static ItemDto transform(Item item) {
-        return new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getImage());
+        return new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getImage(), item.getUserId());
     }
 
     @NonNull
@@ -21,5 +21,8 @@ public class ItemDto {
 
     @NonNull
     private String image;
+
+    @NonNull
+    private Long userId;
 
 }

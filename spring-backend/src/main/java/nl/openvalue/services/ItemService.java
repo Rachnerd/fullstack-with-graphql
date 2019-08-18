@@ -36,12 +36,12 @@ public class ItemService {
     }
 
 
-    public Page<Review> getItemReviews(Long id) {
+    public Page<Review> getItemReviews(Long id, Pageable pageable) {
         if (!itemRepository.findById(id).isPresent()) {
             throw new NotFoundException();
         }
 
-        return reviewRepository.findByItemId(id, PageRequest.of(0, 3));
+        return reviewRepository.findByItemId(id, pageable);
     }
 
 }

@@ -57,12 +57,6 @@ export type GQLPage = {
   totalElements: Scalars['Int'],
 };
 
-export type GQLPaging = {
-  size?: Maybe<Scalars['Int']>,
-  page?: Maybe<Scalars['Int']>,
-  sort?: Maybe<Scalars['String']>,
-};
-
 export type GQLQuery = {
   __typename?: 'Query',
   item?: Maybe<GQLItem>,
@@ -76,7 +70,8 @@ export type GQLQueryItemArgs = {
 
 
 export type GQLQueryItemsArgs = {
-  paging: GQLPaging
+  page: Scalars['Int'],
+  size: Scalars['Int']
 };
 
 export type GQLReview = {
@@ -98,6 +93,7 @@ export type GQLReviewPage = GQLPage & {
 
 export type GQLUser = {
   __typename?: 'User',
+  id: Scalars['ID'],
   name: Scalars['String'],
   email: Scalars['String'],
   image: Scalars['String'],

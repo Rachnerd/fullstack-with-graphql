@@ -33,15 +33,9 @@ interface Page {
   totalElements: Int!
 }
 
-input Paging {
-  size: Int
-  page: Int
-  sort: String
-}
-
 type Query {
   item(id: Int!): Item
-  items(paging: Paging!): ItemPage!
+  items(page: Int!, size: Int!): ItemPage!
 }
 
 type Review {
@@ -60,6 +54,7 @@ type ReviewPage implements Page {
 }
 
 type User {
+  id: ID!
   name: String!
   email: String!
   image: String!

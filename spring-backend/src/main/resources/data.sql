@@ -1,5 +1,5 @@
 INSERT INTO `users` (id, name, email, image)
-VALUES ('1', 'John Doe', 'johnny_69@gmail.com',
+VALUES ('1', 'Rachnerd', 'rachnerd@hotmail.com',
         'https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg'),
        ('2', 'User 2', 'user2@gmail.com',
         'https://icon-library.net/images/no-profile-picture-icon-female/no-profile-picture-icon-female-0.jpg'),

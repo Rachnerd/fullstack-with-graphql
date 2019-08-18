@@ -13,6 +13,7 @@ type Item {
 }
 
 type User {
+    id: ID!
     name: String!
     email: String!
     image: String!
@@ -61,5 +62,5 @@ type Mutation {
 input NewReview {
     description: String!
     rating: Float!
-    itemId: String!
+    itemId: ID!
 }

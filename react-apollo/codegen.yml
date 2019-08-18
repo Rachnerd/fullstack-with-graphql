@@ -8,3 +8,6 @@ generates:
       typesPrefix: GQL
   ./.generated/schema.graphql:
     - schema-ast
+  ./src/client/fragmentTypes.ts:
+    plugins:
+      - fragment-matcher
