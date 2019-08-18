@@ -15,12 +15,7 @@ const Review = ({ review, className = "" }: ReviewProps) => {
   return (
     <div className={classNames("review", className)}>
       <div className={"review__side"}>
-        <User user={{
-          image:  'https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg',
-          name: "Rachnerd",
-          email: ""
-        }} />
-
+        <User user={review.author} />
         <Rating rating={rating} />
       </div>
       {description && (

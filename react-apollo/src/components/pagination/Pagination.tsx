@@ -1,4 +1,4 @@
-import { GQLPage, GQLPaging } from "../../../.generated/gql.model";
+import { GQLPage } from "../../../.generated/gql.model";
 import React from "react";
 import "./Pagination.scss";
 
@@ -7,15 +7,14 @@ interface PaginationProps {
 }
 
 const Pagination = ({
-  page: { number, totalElements, totalPages, size }
+  page: { number, totalElements, totalPages }
 }: PaginationProps) => {
   return (
     <div className={"pagination"}>
       <span>
         Page {number + 1} / {totalPages}
       </span>
-      <span>Size {size}</span>
-      <span>Total: {totalElements} </span>
+      <span>Total reviews: {totalElements} </span>
     </div>
   );
 };

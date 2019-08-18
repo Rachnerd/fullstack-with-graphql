@@ -1,12 +1,38 @@
 import * as React from "react";
-import { GQLUser } from "../../../.generated/gql.model";
+import { useQuery } from "@apollo/react-hooks";
+import { GQLItem } from "../../../.generated/gql.model";
+import gql from "graphql-tag";
+import HttpError from "../../http-error/HttpError";
 
 interface SellerProps {
   className?: string;
-  seller: Pick<GQLUser, "name">;
+  id: number;
 }
 
-const Seller = ({ seller, className = "" }: SellerProps) => {
+const Seller = ({ id, className = "" }: SellerProps) => {
+  const {loading, error, data} = useQuery<Record<"item", GQLItem>>(gql`
+    query item($id: Int!) {
+      item(id: $id) {
+        seller {
+          name
+        }
+      }
+    }
+  `, {variables: {id}});
+
+  if (loading) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    return <HttpError error={error as any}/>;
+  }
+
+  if (!data) {
+    return <p>No Data!</p>;
+  }
+  const { seller } = data.item;
+
   return (
     <div className={className}>
       Seller: <a href={'#'}>{seller.name}</a>

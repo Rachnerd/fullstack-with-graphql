@@ -10,7 +10,7 @@ const User = ({ user }: UserProps) => {
   return (
     <div className={"user"}>
       <img src={user.image} alt={"user"} />
-      <span>{isMe ? `Me (${user.name})` : user.name}</span>
+      <span>{user.name}</span>
     </div>
   );
 };
