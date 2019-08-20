@@ -1,29 +1,34 @@
 import * as React from "react";
-import "./Item.scss";
+import "./ItemDetails.scss";
 import { UIDivider } from "../../ui/Divider";
-import HttpError from "../../http-error/HttpError";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { GQLItem } from "../../../.generated/gql.model";
 import Seller from "../seller/Seller";
-import { AverageRating } from "../rating/average/AverageRating";
-import { ITEM_FRAGMENT } from "../../client/fragments/item.fragments";
+import Rating from "../rating/Rating";
 
-interface ItemProps {
+export const ITEM_DETAILS_QUERY = gql`
+  query item($id: Int!) {
+    item(id: $id) {
+      id
+      name
+      description
+      image
+      seller {
+        name
+      }
+      averageRating
+    }
+  }
+`;
+
+interface ItemDetailsProps {
   id: number;
 }
 
-const Item: React.FC<ItemProps> = ({ id }) => {
+const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
   const { loading, error, data } = useQuery<Record<"item", GQLItem>>(
-    gql`
-      query item($id: Int!) {
-        item(id: $id) {
-          ...ItemFragment
-          averageRating
-        }
-      }
-      ${ITEM_FRAGMENT}
-    `,
+    ITEM_DETAILS_QUERY,
     { variables: { id } }
   );
 
@@ -32,20 +37,20 @@ const Item: React.FC<ItemProps> = ({ id }) => {
   }
 
   if (error) {
-    return <HttpError error={error as any} />;
+      return <p>error</p>;
   }
 
   if (!data) {
     return <p>No Data!</p>;
   }
 
-  const { image, name, description } = data.item;
+  const { image, name, description, averageRating } = data.item;
 
   return (
     <div className={"item"}>
       <h2>{name}</h2>
       <div className={"item__sub-header"}>
-        <AverageRating id={id} />
+        <Rating rating={averageRating} />
         <Seller id={id} />
       </div>
       <UIDivider />
@@ -57,4 +62,4 @@ const Item: React.FC<ItemProps> = ({ id }) => {
   );
 };
 
-export default Item;
+export default ItemDetails;

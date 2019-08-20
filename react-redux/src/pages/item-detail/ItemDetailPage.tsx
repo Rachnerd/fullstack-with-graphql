@@ -22,7 +22,8 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const asyncItem = itemsById[id];
 
   const reviews =
-    (asyncItem.data &&
+    (asyncItem &&
+      asyncItem.data &&
       asyncItem.data.reviews &&
       asyncItem.data.reviews.map(id => reviewsById[id])) ||
     [];

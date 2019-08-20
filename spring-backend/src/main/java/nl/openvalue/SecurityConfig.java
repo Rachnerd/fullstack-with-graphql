@@ -41,14 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestCache(new NullRequestCache())
                 .and()
                 .headers()
-                .frameOptions().sameOrigin() // needed for H2 web console
-                .and()
-                .sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .sessionRegistry(sessionRegistry());
-
-        http.headers()
                 .frameOptions().disable()
                 .and()
                 .authorizeRequests()
@@ -57,7 +49,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .sessionRegistry(sessionRegistry());
+
+
     }
 
     @Bean

@@ -10,7 +10,7 @@ import { PureQueryOptions } from "apollo-client";
 
 interface NewReviewProps {
   itemId: number;
-  refetchQueries?: PureQueryOptions[];
+  refetch?: PureQueryOptions[];
 }
 
 const POST_REVIEW_MUTATION = gql`
@@ -24,18 +24,10 @@ const POST_REVIEW_MUTATION = gql`
   ${REVIEW_FRAGMENT}
 `;
 
-const PostReview = ({ itemId, refetchQueries = [] }: NewReviewProps) => {
+const PostReview = ({ itemId, refetch = [] }: NewReviewProps) => {
   const [rating, setRating] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [mutation] = useMutation(POST_REVIEW_MUTATION);
-
-  const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
-  };
-  const resetForm = () => {
-    setRating(0);
-    setDescription("");
-  };
 
   const onReviewSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -46,13 +38,23 @@ const PostReview = ({ itemId, refetchQueries = [] }: NewReviewProps) => {
           description,
           rating
         },
-        refetchQueries
+        refetchQueries: refetch
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      resetForm();
     }
-    resetForm();
     return true;
+  };
+
+  const onDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value);
+  };
+
+  const resetForm = () => {
+    setRating(0);
+    setDescription("");
   };
 
   return (
@@ -76,7 +78,7 @@ const PostReview = ({ itemId, refetchQueries = [] }: NewReviewProps) => {
         onChange={onDescriptionChange}
         rows={2}
       />
-      <button disabled={false || rating === 0}>Post a review</button>
+      <button disabled={rating === 0}>Post a review</button>
     </form>
   );
 };

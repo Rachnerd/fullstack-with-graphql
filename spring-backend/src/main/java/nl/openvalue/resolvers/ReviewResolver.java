@@ -5,11 +5,7 @@ import nl.openvalue.entities.Review;
 import nl.openvalue.entities.User;
 import nl.openvalue.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
 
 @Component
 public class ReviewResolver implements GraphQLResolver<Review> {

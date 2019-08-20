@@ -2,7 +2,6 @@ import * as React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GQLItem } from "../../../.generated/gql.model";
 import gql from "graphql-tag";
-import HttpError from "../../http-error/HttpError";
 
 interface SellerProps {
   className?: string;
@@ -25,7 +24,7 @@ const Seller = ({ id, className = "" }: SellerProps) => {
   }
 
   if (error) {
-    return <HttpError error={error as any}/>;
+    return <p>error</p>;;
   }
 
   if (!data) {

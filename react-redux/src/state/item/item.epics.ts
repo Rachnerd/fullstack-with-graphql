@@ -11,7 +11,6 @@ import { AppState } from "../state.model";
 import { map, switchMap } from "rxjs/operators";
 import { ItemModel } from "./item.model";
 import { ReviewModel } from "../review/review.model";
-import { fetchReviewSuccessAction } from "../review/review.actions";
 import {
   fetchItemReviews,
   FetchItemReviews,
@@ -55,7 +54,7 @@ export const fetchItemReviewsEpic: Epic<
       if (!response.ok) {
         return fetchItemReviewsErrorAction(id, response.status);
       }
-      const reviews = (await response.json()) as ReviewModel[];
-      return fetchItemReviewsSuccessAction(id, reviews);
+      const { content } = (await response.json()) as Record<"content",  ReviewModel[]>;
+      return fetchItemReviewsSuccessAction(id, content);
     })
-  );
+  )

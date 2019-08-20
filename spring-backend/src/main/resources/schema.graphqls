@@ -53,8 +53,6 @@ type ItemPage implements Page {
     totalElements: Int!
 }
 
-
-
 type Mutation {
     postReview(review: NewReview!): Review!
 }

@@ -5,11 +5,11 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public class PagedData<T> {
+public class PageDto<T> {
     private List<T> data;
     private Pageable pageInfo;
 
-    public PagedData(Page<T> page) {
+    public PageDto(Page<T> page) {
         this.pageInfo = page.getPageable();
         this.data = page.getContent();
     }

@@ -18,7 +18,7 @@ VALUES ('Item 1', 'Description', '1',
 
 
 INSERT INTO `reviews` (description, item_id, user_id, rating)
-VALUES ('Description 1', '1', '3', '4'),
+VALUES ('Description 1', '1', '3', '1'),
        ('Description 2', '2', '2', '4'),
        ('Description 3', '2', '3', '1'),
        ('Description 4', '4', '3', '3'),

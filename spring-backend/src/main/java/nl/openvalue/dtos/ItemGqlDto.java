@@ -30,12 +30,4 @@ public class ItemGqlDto {
 
     @NonNull
     private Long userId;
-
-    @Setter
-    @Getter
-    private Page<Review> reviews;
-
-    @Setter
-    @Getter
-    private Float reviewsAverage;
 }

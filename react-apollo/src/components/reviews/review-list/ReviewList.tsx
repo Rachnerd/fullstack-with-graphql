@@ -1,19 +1,12 @@
 import { UIDivider } from "../../../ui/Divider";
-import Review from "../Review";
+import Review from "../review/Review";
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GQLItem } from "../../../../.generated/gql.model";
 import gql from "graphql-tag";
-import HttpError from "../../../http-error/HttpError";
 import Pagination from "../../pagination/Pagination";
 import { REVIEW_FRAGMENT } from "../../../client/fragments/review.fragments";
 import { PAGE_FRAGMENT } from "../../../client/fragments/page.fragments";
-
-interface ReviewListProps {
-  itemId: number;
-  page?: number;
-  size?: number;
-}
 
 export const REVIEW_LIST_QUERY = gql`
   query Item($id: Int!, $page: Int!, $size: Int!) {
@@ -31,6 +24,12 @@ export const REVIEW_LIST_QUERY = gql`
   ${REVIEW_FRAGMENT}
 `;
 
+interface ReviewListProps {
+  itemId: number;
+  page?: number;
+  size?: number;
+}
+
 const ReviewList: React.FC<ReviewListProps> = ({
   itemId,
   page = 0,
@@ -46,25 +45,25 @@ const ReviewList: React.FC<ReviewListProps> = ({
   }
 
   if (error) {
-    console.log(error);
-    return <HttpError error={error as any} />;
+    return <p>Error!</p>;
   }
 
   if (!data) {
     return <p>No Data!</p>;
   }
+  const { reviews } = data.item;
 
   return (
     <div>
       <ul>
-        {data!.item.reviews.content.map((review, index) => (
+        {reviews.content.map((review, index) => (
           <li key={index}>
             <Review review={review} />
             <UIDivider />
           </li>
         ))}
       </ul>
-      <Pagination page={data!.item.reviews} />
+      <Pagination page={reviews} />
     </div>
   );
 };

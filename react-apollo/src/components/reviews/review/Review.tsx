@@ -1,9 +1,9 @@
 import * as React from "react";
-import Rating from "../rating/Rating";
+import Rating from "../../rating/Rating";
 import classNames from "classnames";
 import "./Review.scss";
-import User from "../user/User";
-import { GQLReview } from "../../../.generated/gql.model";
+import { GQLReview } from "../../../../.generated/gql.model";
+import User from "../../user/User";
 
 interface ReviewProps {
   className?: string;

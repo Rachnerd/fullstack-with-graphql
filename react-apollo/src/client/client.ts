@@ -13,6 +13,6 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 export const cache = new InMemoryCache({ fragmentMatcher });
 
 export const client = new ApolloClient({
-  link: new BatchHttpLink({ uri: "http://localhost:4000" }),
+  link: new BatchHttpLink({ uri: "http://localhost:8080/graphql" }),
   cache
 });

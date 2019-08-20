@@ -1,18 +1,18 @@
 import React from "react";
-import Item from "../../components/item/Item";
-import "./ItemDetailPage.scss";
-import { Reviews } from "../../components/review/reviews/Reviews";
+import ItemDetails from "../../components/item/ItemDetails";
+import "./ItemDetailsPage.scss";
+import { Reviews } from "../../components/reviews/Reviews";
 
 interface ItemDetailPageProps {
   id: number;
 }
 
-const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
+const ItemDetailsPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   const showReviews = window.location.href.indexOf("no-reviews") === -1;
 
   return (
     <div className={"item-detail-page"}>
-      <Item id={id} />
+      <ItemDetails id={id} />
       <div style={{ width: "50px" }} />
       <span style={{ opacity: showReviews ? 1 : 0 }}>
         <Reviews itemId={id} />
@@ -21,4 +21,4 @@ const ItemDetailPage: React.FC<ItemDetailPageProps> = ({ id }) => {
   );
 };
 
-export default ItemDetailPage;
+export default ItemDetailsPage;

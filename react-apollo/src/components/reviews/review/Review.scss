@@ -1,6 +1,7 @@
 .review {
   display: flex;
   flex-direction: column;
+  min-width: 10em;
   &__side {
     display: flex;
     flex-direction: row;

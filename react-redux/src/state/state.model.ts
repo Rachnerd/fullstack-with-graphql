@@ -8,7 +8,27 @@ export enum HTTP_STATUS_CODE {
 }
 
 export interface AppState {
-  normalizedItems: Normalized<Async<ItemModel>>;
-  normalizedReviews: Normalized<Async<ReviewModel>>;
-  asyncReviewPost: Async<boolean>;
+  normalizedItems: {
+    allIds: string[];
+    byIds: {
+      [id: string]: {
+        loading: boolean;
+        data?: ItemModel;
+        error?: number;
+      };
+    };
+  };
+  normalizedReviews: {
+    allIds: string[];
+    byIds: {
+      loading: boolean;
+      data?: ReviewModel;
+      error?: number;
+    };
+  };
+  asyncReviewPost: {
+    loading: boolean;
+    data?: boolean;
+    error?: number;
+  };
 }

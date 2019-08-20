@@ -43,5 +43,4 @@ public class ItemService {
 
         return reviewRepository.findByItemId(id, pageable);
     }
-
 }
