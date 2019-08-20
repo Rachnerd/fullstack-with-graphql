@@ -1,5 +1,10 @@
-html {
-  //scroll-behavior: smooth;
+body {
+  padding-bottom: 4em;
+  font-size: 28px;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
 }
 
 h2 {
@@ -20,12 +25,5 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-body {
-  padding-bottom: 4em;
-}
-
-body::-webkit-scrollbar {
-  width: 0;
+  width: 100%;
 }

@@ -56,7 +56,7 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
       <UIDivider />
       <img className={"item__image"} src={image} alt={"item"} />
       <UIDivider />
-      <h3>Item description</h3>
+      <h3>Description</h3>
       <p>{description}</p>
     </div>
   );
