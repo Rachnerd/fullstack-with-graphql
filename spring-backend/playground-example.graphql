@@ -1,0 +1,13 @@
+query ItemWithRatings($id: Int!, $reviewPage: Int!, $reviewSize: Int!){
+    item(id: $id) {
+        id
+        name
+        averageRating
+        reviews(page: $reviewPage size: $reviewSize) {
+            content {
+                rating
+            }
+            totalElements
+        }
+    }
+}

@@ -4,7 +4,6 @@ import nl.openvalue.dtos.ItemDto;
 import nl.openvalue.dtos.ReviewDto;
 import nl.openvalue.services.ItemService;
 import nl.openvalue.services.ReviewService;
-import nl.openvalue.utils.PageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
