@@ -23,7 +23,7 @@ type Mutation {
 input NewReview {
   description: String!
   rating: Float!
-  itemId: String!
+  itemId: ID!
 }
 
 interface Page {

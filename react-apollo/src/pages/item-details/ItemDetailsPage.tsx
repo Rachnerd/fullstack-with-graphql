@@ -1,5 +1,5 @@
 import React from "react";
-import ItemDetails from "../../components/item/ItemDetails";
+import { ItemDetails } from "../../components/item/ItemDetails";
 import "./ItemDetailsPage.scss";
 import { Reviews } from "../../components/reviews/Reviews";
 

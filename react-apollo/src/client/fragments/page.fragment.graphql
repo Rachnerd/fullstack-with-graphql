@@ -1,0 +1,6 @@
+fragment PageFragment on Page {
+    size
+    number
+    totalPages
+    totalElements
+}

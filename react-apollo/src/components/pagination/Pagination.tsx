@@ -1,4 +1,4 @@
-import { GQLPage } from "../../../.generated/gql.model";
+import { GQLPage } from "../../.generated/gql.model";
 import React from "react";
 import "./Pagination.scss";
 

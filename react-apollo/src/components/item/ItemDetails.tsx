@@ -1,46 +1,26 @@
 import * as React from "react";
 import "./ItemDetails.scss";
 import { UIDivider } from "../../ui/Divider";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import { GQLItem } from "../../../.generated/gql.model";
 import Seller from "../seller/Seller";
 import Rating from "../rating/Rating";
-
-export const ITEM_DETAILS_QUERY = gql`
-  query item($id: Int!) {
-    item(id: $id) {
-      id
-      name
-      description
-      image
-      seller {
-        name
-      }
-      averageRating
-    }
-  }
-`;
+import { useItemDetailsQuery } from "../../.generated/gql.model";
 
 interface ItemDetailsProps {
   id: number;
 }
 
-const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
-  const { loading, error, data } = useQuery<Record<"item", GQLItem>>(
-    ITEM_DETAILS_QUERY,
-    { variables: { id } }
-  );
+export const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
+  const { loading, error, data } = useItemDetailsQuery({ variables: { id } });
 
   if (loading) {
     return <p>Loading</p>;
   }
 
   if (error) {
-      return <p>error</p>;
+    return <p>error</p>;
   }
 
-  if (!data) {
+  if (!data || !data.item) {
     return <p>No Data!</p>;
   }
 
@@ -61,5 +41,3 @@ const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
     </div>
   );
 };
-
-export default ItemDetails;

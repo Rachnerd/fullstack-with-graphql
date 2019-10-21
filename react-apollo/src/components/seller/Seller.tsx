@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { GQLItem } from "../../../.generated/gql.model";
+import { GQLItem } from "../../.generated/gql.model";
 import gql from "graphql-tag";
 
 interface SellerProps {

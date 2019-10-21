@@ -1,11 +1,18 @@
 schema: http://localhost:8080/graphql
+documents: ./**/*.graphql
 overwrite: true
 generates:
-  ./.generated/gql.model.ts:
+  ./src/.generated/gql.model.tsx:
     plugins:
       - typescript
+      - typescript-operations
+      - typescript-react-apollo
     config:
+      withHooks: true
+      withHOC: false
+      hooksImportFrom: "@apollo/react-hooks"
       typesPrefix: GQL
+      avoidOptionals: true
   ./.generated/schema.graphql:
     - schema-ast
   ./src/client/fragmentTypes.ts:

@@ -3,42 +3,27 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import "./PostReview.scss";
 import ConfigurableRating from "../../rating/configurable/ConfigurableRating";
 import User from "../../user/User";
-import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import { REVIEW_FRAGMENT } from "../../../client/fragments/review.fragments";
-import { PureQueryOptions } from "apollo-client";
+import { usePostReviewMutation } from "../../../.generated/gql.model";
 
 interface NewReviewProps {
   itemId: number;
-  refetch?: PureQueryOptions[];
 }
-
-const POST_REVIEW_MUTATION = gql`
-  mutation PostReview($itemId: ID!, $description: String!, $rating: Float!) {
-    postReview(
-      review: { itemId: $itemId, description: $description, rating: $rating }
-    ) {
-      ...ReviewFragment
-    }
-  }
-  ${REVIEW_FRAGMENT}
-`;
-
-const PostReview = ({ itemId, refetch = [] }: NewReviewProps) => {
+const PostReview = ({ itemId }: NewReviewProps) => {
   const [rating, setRating] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
-  const [mutation] = useMutation(POST_REVIEW_MUTATION);
+  const [mutation] = usePostReviewMutation();
 
   const onReviewSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
       await mutation({
         variables: {
-          itemId,
+          itemId: itemId.toString(),
           description,
           rating
         },
-        refetchQueries: refetch
+        refetchQueries: ["ItemReviews", "ItemDetails"],
+        awaitRefetchQueries: true
       });
     } catch (error) {
       console.error(error);
@@ -62,11 +47,9 @@ const PostReview = ({ itemId, refetch = [] }: NewReviewProps) => {
       <div className={"new-review__rating"}>
         <User
           user={{
-            id: "1",
             image:
               "https://s3.amazonaws.com/media-p.slid.es/uploads/305120/images/3895531/DSC_0893_1.1_0.9r.jpg",
-            name: "Rachnerd",
-            email: ""
+            name: "Rachnerd"
           }}
         />
         <ConfigurableRating rating={rating} onSelectRating={setRating} />

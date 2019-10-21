@@ -1,8 +1,8 @@
 import * as React from "react";
-import { GQLUser } from "../../../.generated/gql.model";
+import { GQLUser } from "../../.generated/gql.model";
 
 interface UserProps {
-  user: GQLUser;
+  user: Pick<GQLUser, "name" | "image">;
 }
 
 const User = ({ user }: UserProps) => {

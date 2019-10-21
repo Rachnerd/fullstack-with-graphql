@@ -1,0 +1,10 @@
+fragment ReviewFragment on Review {
+    id
+    description
+    rating
+    author {
+        id
+        name
+        image
+    }
+}

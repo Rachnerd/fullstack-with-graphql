@@ -1,0 +1,18 @@
+query ItemReviews($id: Int!, $page: Int!, $size: Int!) {
+  item(id: $id) {
+    id
+    reviews(page: $page, size: $size) {
+      ...PageFragment
+      content {
+        id
+        description
+        rating
+        author {
+          id
+          name
+          image
+        }
+      }
+    }
+  }
+}
