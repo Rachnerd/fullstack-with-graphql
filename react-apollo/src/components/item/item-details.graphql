@@ -1,10 +1,11 @@
-query ItemDetails($id: String!) {
+query ItemDetails($id: Int!) {
   item(id: $id) {
     id
     name
     description
     image
     seller {
+      id
       name
     }
     averageRating

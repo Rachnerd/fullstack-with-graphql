@@ -9,8 +9,8 @@ query ItemReviews($id: Int!, $page: Int!, $size: Int!) {
         rating
         author {
           id
-          name
           image
+          name
         }
       }
     }

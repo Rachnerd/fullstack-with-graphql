@@ -137,7 +137,7 @@ export type GQLItemDetailsQuery = (
     & Pick<GQLItem, 'id' | 'name' | 'description' | 'image' | 'averageRating'>
     & { seller: (
       { __typename?: 'User' }
-      & Pick<GQLUser, 'name'>
+      & Pick<GQLUser, 'id' | 'name'>
     ) }
   )> }
 );
@@ -176,7 +176,7 @@ export type GQLItemReviewsQuery = (
         & Pick<GQLReview, 'id' | 'description' | 'rating'>
         & { author: (
           { __typename?: 'User' }
-          & Pick<GQLUser, 'id' | 'name' | 'image'>
+          & Pick<GQLUser, 'id' | 'image' | 'name'>
         ) }
       )> }
       & GQLPageFragment_ReviewPage_Fragment
@@ -211,6 +211,7 @@ export const ItemDetailsDocument = gql`
     description
     image
     seller {
+      id
       name
     }
     averageRating
@@ -301,8 +302,8 @@ export const ItemReviewsDocument = gql`
         rating
         author {
           id
-          name
           image
+          name
         }
       }
     }

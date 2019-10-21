@@ -1,41 +1,16 @@
 import * as React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { GQLItem } from "../../.generated/gql.model";
-import gql from "graphql-tag";
+import { GQLUser } from "../../.generated/gql.model";
+
+export type SellerSubset = Pick<GQLUser, "id" | "name">;
 
 interface SellerProps {
-  className?: string;
-  id: number;
+  seller: SellerSubset;
 }
 
-const Seller = ({ id, className = "" }: SellerProps) => {
-  const {loading, error, data} = useQuery<Record<"item", GQLItem>>(gql`
-    query item($id: Int!) {
-      item(id: $id) {
-        seller {
-          name
-        }
-      }
-    }
-  `, {variables: {id}});
-
-  if (loading) {
-    return <p>Loading</p>;
-  }
-
-  if (error) {
-    return <p>error</p>;;
-  }
-
-  if (!data) {
-    return <p>No Data!</p>;
-  }
-  const { seller } = data.item;
-
+export const Seller: React.FC<SellerProps> = ({ seller }) => {
   return (
-    <div className={className}>
-      Seller: <a href={'#'}>{seller.name}</a>
+    <div>
+      Seller: <a href={`http://localhost:8000/user/${seller.id}`}>{seller.name}</a>
     </div>
   );
 };
-export default Seller;

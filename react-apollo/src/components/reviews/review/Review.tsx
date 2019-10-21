@@ -1,19 +1,20 @@
 import * as React from "react";
-import Rating from "../../rating/Rating";
-import classNames from "classnames";
+import { Rating } from "../../rating/Rating";
 import "./Review.scss";
-import { GQLReview, GQLUser } from "../../../.generated/gql.model";
-import User from "../../user/User";
+import { GQLReview } from "../../../.generated/gql.model";
+import { User, UserSubset } from "../../user/User";
+
+type ReviewSubset = Pick<GQLReview, "id" | "rating" | "description"> &
+  Record<"author", UserSubset>;
 
 interface ReviewProps {
-  review: Pick<GQLReview, "id" | "rating" | "description"> &
-    Record<"author", Pick<GQLUser, "name" | "image">>;
+  review: ReviewSubset;
 }
 
-const Review = ({ review }: ReviewProps) => {
+export const Review = ({ review }: ReviewProps) => {
   const { rating, description } = review;
   return (
-    <div className={classNames("review")}>
+    <div className={"review"}>
       <div className={"review__side"}>
         <User user={review.author} />
         <Rating rating={rating} />
@@ -26,4 +27,3 @@ const Review = ({ review }: ReviewProps) => {
     </div>
   );
 };
-export default Review;

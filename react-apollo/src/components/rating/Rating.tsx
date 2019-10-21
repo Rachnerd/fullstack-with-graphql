@@ -9,7 +9,7 @@ interface RatingProps {
 
 const MAX_DEFAULT = 5;
 
-const Rating: React.FC<RatingProps & HTMLAttributes<HTMLSpanElement>> = ({
+export const Rating: React.FC<RatingProps & HTMLAttributes<HTMLSpanElement>> = ({
   rating,
   max = MAX_DEFAULT,
   className,
@@ -36,5 +36,3 @@ const Rating: React.FC<RatingProps & HTMLAttributes<HTMLSpanElement>> = ({
     </div>
   );
 };
-
-export default Rating;

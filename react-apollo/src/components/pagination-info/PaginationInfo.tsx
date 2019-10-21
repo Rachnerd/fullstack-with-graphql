@@ -1,12 +1,12 @@
 import { GQLPage } from "../../.generated/gql.model";
 import React from "react";
-import "./Pagination.scss";
+import "./PaginationInfo.scss";
 
 interface PaginationProps {
   page: GQLPage;
 }
 
-const Pagination = ({
+export const PaginationInfo = ({
   page: { number, totalElements, totalPages }
 }: PaginationProps) => {
   return (
@@ -18,5 +18,3 @@ const Pagination = ({
     </div>
   );
 };
-
-export default Pagination;

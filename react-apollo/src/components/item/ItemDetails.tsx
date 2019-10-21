@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./ItemDetails.scss";
 import { UIDivider } from "../../ui/Divider";
-import Seller from "../seller/Seller";
-import Rating from "../rating/Rating";
+import { Seller } from "../seller/Seller";
+import { Rating } from "../rating/Rating";
 import { useItemDetailsQuery } from "../../.generated/gql.model";
 
 interface ItemDetailsProps {
@@ -10,7 +10,9 @@ interface ItemDetailsProps {
 }
 
 export const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
-  const { loading, error, data } = useItemDetailsQuery({ variables: { id } });
+  const { loading, error, data } = useItemDetailsQuery({
+    variables: { id }
+  });
 
   if (loading) {
     return <p>Loading</p>;
@@ -24,14 +26,14 @@ export const ItemDetails: React.FC<ItemDetailsProps> = ({ id }) => {
     return <p>No Data!</p>;
   }
 
-  const { image, name, description, averageRating } = data.item;
+  const { image, name, description, averageRating, seller } = data.item;
 
   return (
     <div className={"item"}>
       <h2>{name}</h2>
       <div className={"item__sub-header"}>
         <Rating rating={averageRating} />
-        <Seller id={id} />
+        <Seller seller={seller} />
       </div>
       <UIDivider />
       <img className={"item__image"} src={image} alt={"item"} />

@@ -1,6 +1,6 @@
 import { UIDivider } from "../../ui/Divider";
-import ReviewList from "./review-list/ReviewList";
-import PostReview from "./post-review/PostReview";
+import { ReviewList } from "./review-list/ReviewList";
+import { PostReview } from "./post-review/PostReview";
 import React from "react";
 
 interface ReviewsProps {
@@ -12,7 +12,7 @@ export const Reviews = ({ itemId }: ReviewsProps) => {
     <div className={"reviews"}>
       <h2>Reviews</h2>
       <UIDivider />
-      <ReviewList itemId={itemId} page={0} size={3} />
+      <ReviewList itemId={itemId} />
       <UIDivider />
       <PostReview itemId={itemId} />
     </div>

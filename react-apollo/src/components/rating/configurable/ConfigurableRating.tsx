@@ -1,6 +1,6 @@
 import { default as React, useEffect, useState } from "react";
 import "./ConfigurableRating.scss";
-import Rating from "../Rating";
+import { Rating } from "../Rating";
 
 interface ConfigurableRatingProps {
   rating: number;
@@ -8,7 +8,7 @@ interface ConfigurableRatingProps {
   minRating?: number;
 }
 
-const ConfigurableRating = ({ rating, onSelectRating, minRating = 1 }: ConfigurableRatingProps) => {
+export const ConfigurableRating = ({ rating, onSelectRating, minRating = 1 }: ConfigurableRatingProps) => {
   const [newRating, setNewRating] = useState<number>(rating);
 
   useEffect(() => {
@@ -58,5 +58,3 @@ const ConfigurableRating = ({ rating, onSelectRating, minRating = 1 }: Configura
     />
   );
 };
-
-export default ConfigurableRating;

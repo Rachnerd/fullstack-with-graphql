@@ -1,12 +1,13 @@
 import * as React from "react";
 import { GQLUser } from "../../.generated/gql.model";
 
+export type UserSubset = Pick<GQLUser, "name" | "image">;
+
 interface UserProps {
-  user: Pick<GQLUser, "name" | "image">;
+  user: UserSubset;
 }
 
-const User = ({ user }: UserProps) => {
-  const isMe = user.name === "Rachnerd";
+export const User = ({ user }: UserProps) => {
   return (
     <div className={"user"}>
       <img src={user.image} alt={"user"} />
@@ -14,4 +15,3 @@ const User = ({ user }: UserProps) => {
     </div>
   );
 };
-export default User;

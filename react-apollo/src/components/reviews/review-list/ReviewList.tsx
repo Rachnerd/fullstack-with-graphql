@@ -1,22 +1,16 @@
 import { UIDivider } from "../../../ui/Divider";
-import Review from "../review/Review";
+import { Review } from "../review/Review";
 import React from "react";
 import { useItemReviewsQuery } from "../../../.generated/gql.model";
-import Pagination from "../../pagination/Pagination";
+import { PaginationInfo } from "../../pagination-info/PaginationInfo";
 
 interface ReviewListProps {
   itemId: number;
-  page?: number;
-  size?: number;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({
-  itemId,
-  page = 0,
-  size = 3
-}) => {
+export const ReviewList: React.FC<ReviewListProps> = ({ itemId }) => {
   const { loading, error, data } = useItemReviewsQuery({
-    variables: { id: itemId, page, size }
+    variables: { id: itemId, page: 0, size: 3 }
   });
 
   if (loading) {
@@ -35,16 +29,14 @@ const ReviewList: React.FC<ReviewListProps> = ({
   return (
     <div>
       <ul>
-        {reviews.content.map((review, index) => (
-          <li key={index}>
-            {review.id && <Review review={review} />}
+        {reviews.content.map(review => (
+          <li key={review.id}>
+            <Review review={review} />
             <UIDivider />
           </li>
         ))}
       </ul>
-      <Pagination page={reviews} />
+      <PaginationInfo page={reviews} />
     </div>
   );
 };
-
-export default ReviewList;

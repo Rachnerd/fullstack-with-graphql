@@ -1,22 +1,23 @@
 import * as React from "react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import "./PostReview.scss";
-import ConfigurableRating from "../../rating/configurable/ConfigurableRating";
-import User from "../../user/User";
+import { ConfigurableRating } from "../../rating/configurable/ConfigurableRating";
+import { User } from "../../user/User";
 import { usePostReviewMutation } from "../../../.generated/gql.model";
 
 interface NewReviewProps {
   itemId: number;
 }
-const PostReview = ({ itemId }: NewReviewProps) => {
+
+export const PostReview: React.FC<NewReviewProps> = ({ itemId }) => {
   const [rating, setRating] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
-  const [mutation] = usePostReviewMutation();
+  const [postReview] = usePostReviewMutation();
 
   const onReviewSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await mutation({
+      await postReview({
         variables: {
           itemId: itemId.toString(),
           description,
@@ -65,5 +66,3 @@ const PostReview = ({ itemId }: NewReviewProps) => {
     </form>
   );
 };
-
-export default PostReview;
